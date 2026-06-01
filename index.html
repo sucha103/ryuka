@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ryuka | Tactical Operations Command</title>
+  <meta name="description" content="Operations Commander across Genshin Impact, HSR, ZZZ & Wuthering Waves. Custom game top-ups and boosting services.">
+  
+  <!-- Premium Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Share+Tech+Mono&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ==========================================================================
+       1. CUSTOM CURSOR SKILL
+       ========================================================================== */
+    *, a, button, [onclick], input[type="submit"], a *, button * {
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23e62e36' stroke-width='2'%3E%3Ccircle cx='12' cy='12' r='4'/%3E%3Cpath d='M12 2v4M12 18v4M2 12h4M18 12h4'/%3E%3C/svg%3E") 12 12, auto !important;
+    }
+    
+    body.claurrd-dark *, body.claurrd-dark a, body.claurrd-dark button {
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23ff4a5a' stroke-width='2'%3E%3Ccircle cx='12' cy='12' r='4'/%3E%3Cpath d='M12 2v4M12 18v4M2 12h4M18 12h4'/%3E%3C/svg%3E") 12 12, auto !important;
+    }
+
+    /* ==========================================================================
+       2. DESIGN SYSTEM TOKENS (awesome-design-md + Stripe/Linear influence)
+       ========================================================================== */
+    :root {
+      /* Colors */
+      --bg-gradient: linear-gradient(135deg, #7a0e14 0%, #d81b24 45%, #150204 100%);
+      --bg-gradient-dark: linear-gradient(135deg, #1c0407 0%, #0d0102 70%);
+      
+      --card-bg-light: rgba(253, 252, 249, 0.96);
+      --card-bg-dark: rgba(18, 11, 13, 0.94);
+      --card-border-light: 1px solid rgba(230, 46, 54, 0.12);
+      --card-border-dark: 1px solid rgba(255, 74, 90, 0.2);
+      
+      --text-heading-light: #16171b;
+      --text-heading-dark: #ffffff;
+      --text-body-light: #444752;
+      --text-body-dark: #cbd2e0;
+      --text-muted-light: #7c808f;
+      --text-muted-dark: #828c9e;
+      
+      --primary: #d81b24;
+      --primary-hover: #b8121a;
+      --primary-glow: rgba(216, 27, 36, 0.25);
+      
+      --accent: #ffd000; /* Tactical gold */
+      
+      /* Game Brand Colors (Light Mode) */
+      --bg-genshin: rgba(153, 101, 21, 0.07);
+      --text-genshin: #8a5a00;
+      --bg-hsr: rgba(0, 119, 182, 0.07);
+      --text-hsr: #0077b6;
+      --bg-zzz: rgba(220, 160, 0, 0.08);
+      --text-zzz: #8a6500;
+      --bg-wuwa: rgba(0, 131, 143, 0.07);
+      --text-wuwa: #00838f;
+      --bg-fgo: rgba(112, 56, 206, 0.07);
+      --text-fgo: #7038ce;
+
+      /* Typography */
+      --font-heading: 'Plus Jakarta Sans', sans-serif;
+      --font-body: 'Outfit', sans-serif;
+      --font-mono: 'Share Tech Mono', monospace;
+      
+      --transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Theme Overrides via body class */
+    body {
+      background: var(--bg-gradient);
+      background-attachment: fixed;
+      color: var(--text-body-light);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      position: relative;
+    }
+
+    body.claurrd-dark {
+      background: var(--bg-gradient-dark);
+      background-attachment: fixed;
+      color: var(--text-body-dark);
+      
+      /* Game Brand Colors (Dark Mode) */
+      --bg-genshin: rgba(229, 193, 88, 0.12);
+      --text-genshin: #e5c158;
+      --bg-hsr: rgba(97, 192, 244, 0.12);
+      --text-hsr: #61c0f4;
+      --bg-zzz: rgba(249, 216, 0, 0.1);
+      --text-zzz: #ffd700;
+      --bg-wuwa: rgba(74, 240, 255, 0.12);
+      --text-wuwa: #4af0ff;
+      --bg-fgo: rgba(162, 114, 255, 0.12);
+      --text-fgo: #a272ff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ==========================================================================
+       3. BACKGROUND ELEMENTS (Shining Stars + Radial Nebula Glows)
+       ========================================================================== */
+    .bg-elements {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Twinkling star keyframe */
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.15; transform: scale(0.7) rotate(0deg); }
+      50% { opacity: 1; transform: scale(1.3) rotate(15deg); }
+    }
+
+    .sparkle {
+      position: absolute;
+      color: rgba(255, 255, 255, 0.5);
+      animation: twinkle 6s infinite ease-in-out;
+      pointer-events: none;
+    }
+
+    .sparkle svg {
+      width: 100%;
+      height: auto;
+      fill: currentColor;
+    }
+
+    /* Ambient glow behind card (Stripe style) */
+    .radial-nebula {
+      position: absolute;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(216, 27, 36, 0.15) 0%, transparent 70%);
+      top: -100px;
+      right: -100px;
+      pointer-events: none;
+      filter: blur(80px);
+      z-index: 0;
+      opacity: 0.8;
+    }
+
+    /* ==========================================================================
+       4. MAIN WRAPPER & CARD STRUCTURE (carrd-base Structure)
+       ========================================================================== */
+    #wrapper {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 3rem 8% 3rem 3rem;
+      z-index: 1;
+      position: relative;
+    }
+
+    .card {
+      background: var(--card-bg-light);
+      border: var(--card-border-light);
+      border-radius: 40px;
+      box-shadow: 0 40px 90px rgba(0, 0, 0, 0.18),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      width: 100%;
+      max-width: 42rem; /* Wider layout for readability and elements */
+      padding: 4rem;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+      opacity: 0;
+      transform: translateY(20px);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    body.claurrd-dark .card {
+      background: var(--card-bg-dark);
+      border: var(--card-border-dark);
+      box-shadow: 0 40px 90px rgba(0, 0, 0, 0.4),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    body.is-loaded .card {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Spotlight follower behind card border */
+    .card-spotlight {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: -1;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    /* Section Routing Control */
+    .carrd-section {
+      position: absolute;
+      visibility: hidden;
+      opacity: 0;
+      transform: scale(0.96);
+      transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s;
+      pointer-events: none;
+      width: calc(100% - 8rem);
+    }
+
+    .carrd-section.active {
+      position: relative;
+      visibility: visible;
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+      width: 100%;
+    }
+
+    /* ==========================================================================
+       5. HOME PAGE VIEW (.carrd-section)
+       ========================================================================== */
+    .profile-horizontal-layout {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 2.8rem;
+      text-align: left;
+    }
+
+    /* Avatar wrapping with military HUD elements */
+    .avatar-wrapper {
+      position: relative;
+      flex-shrink: 0;
+      width: 140px;
+      height: 140px;
+      margin-top: 5px;
+    }
+
+    .avatar-image {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--primary);
+      box-shadow: 0 8px 24px rgba(216, 27, 36, 0.15);
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    /* Rotating Cadet HUD indicator rings */
+    .avatar-hud-outer {
+      position: absolute;
+      top: -8px;
+      left: -8px;
+      right: -8px;
+      bottom: -8px;
+      border: 1px dashed var(--primary);
+      border-radius: 50%;
+      animation: rotateHUD 25s linear infinite;
+      opacity: 0.4;
+    }
+
+    .avatar-hud-inner {
+      position: absolute;
+      top: -4px;
+      left: -4px;
+      right: -4px;
+      bottom: -4px;
+      border: 1.5px solid var(--accent);
+      border-radius: 50%;
+      clip-path: polygon(0 0, 25% 0, 25% 100%, 0 100%);
+      animation: rotateHUDInverse 12s linear infinite;
+      opacity: 0.7;
+    }
+
+    .status-dot {
+      position: absolute;
+      bottom: 2px;
+      right: 12px;
+      width: 14px;
+      height: 14px;
+      background: #10b981;
+      border-radius: 50%;
+      border: 3px solid var(--card-bg-light);
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
+    }
+    
+    body.claurrd-dark .status-dot {
+      border-color: var(--card-bg-dark);
+    }
+
+    /* Profile details side styling */
+    .profile-details {
+      flex-grow: 1;
+    }
+
+    /* Headings */
+    .profile-name {
+      font-family: var(--font-heading);
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--text-heading-light);
+      letter-spacing: -0.03em;
+      margin-bottom: 0.2rem;
+      line-height: 1.2;
+    }
+
+    body.claurrd-dark .profile-name {
+      color: var(--text-heading-dark);
+    }
+
+    /* Rotating typewriter role text component */
+    .role-text-container {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .claurrd-cursor {
+      animation: blink 0.8s infinite;
+      font-weight: bold;
+    }
+
+    /* Bio description elements */
+    .profile-bio {
+      font-size: 0.98rem;
+      line-height: 1.6;
+      color: var(--text-body-light);
+      margin-bottom: 1.8rem;
+    }
+
+    body.claurrd-dark .profile-bio {
+      color: var(--text-body-dark);
+    }
+
+    .profile-bio p {
+      margin-bottom: 0.8rem;
+    }
+
+    /* Rich gaming logo pills/badges */
+    .game-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 8px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.82rem;
+      white-space: nowrap;
+      transition: var(--transition);
+      border: 1px solid transparent;
+    }
+
+    .game-badge img {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .badge-genshin {
+      background: var(--bg-genshin);
+      color: var(--text-genshin);
+      border-color: rgba(138, 90, 0, 0.1);
+    }
+    body.claurrd-dark .badge-genshin {
+      border-color: rgba(229, 193, 88, 0.15);
+    }
+
+    .badge-hsr {
+      background: var(--bg-hsr);
+      color: var(--text-hsr);
+      border-color: rgba(0, 119, 182, 0.1);
+    }
+    body.claurrd-dark .badge-hsr {
+      border-color: rgba(97, 192, 244, 0.15);
+    }
+
+    .badge-zzz {
+      background: var(--bg-zzz);
+      color: var(--text-zzz);
+      border-color: rgba(138, 101, 0, 0.1);
+    }
+    body.claurrd-dark .badge-zzz {
+      border-color: rgba(249, 216, 0, 0.15);
+    }
+
+    .badge-wuwa {
+      background: var(--bg-wuwa);
+      color: var(--text-wuwa);
+      border-color: rgba(0, 131, 143, 0.1);
+    }
+    body.claurrd-dark .badge-wuwa {
+      border-color: rgba(74, 240, 255, 0.15);
+    }
+
+    .badge-fgo {
+      background: var(--bg-fgo);
+      color: var(--text-fgo);
+      border-color: rgba(112, 56, 206, 0.1);
+    }
+    body.claurrd-dark .badge-fgo {
+      border-color: rgba(162, 114, 255, 0.15);
+    }
+
+    /* Interactive Prices Link Button (Instead of simple underline link) */
+    .prices-trigger-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.75rem 1.4rem;
+      background: var(--primary);
+      color: #ffffff;
+      text-decoration: none;
+      font-family: var(--font-heading);
+      font-size: 0.88rem;
+      font-weight: 700;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px var(--primary-glow);
+      transition: var(--transition);
+      margin-top: 0.5rem;
+    }
+
+    .prices-trigger-btn:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(216, 27, 36, 0.35);
+    }
+
+    .prices-trigger-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.5;
+      transition: transform 0.3s;
+    }
+
+    .prices-trigger-btn:hover svg {
+      transform: translateX(4px);
+    }
+
+    /* Horizontal divider matching image template */
+    .divider-line {
+      width: 100%;
+      height: 1px;
+      background: rgba(0, 0, 0, 0.08);
+      margin: 2rem 0;
+    }
+
+    body.claurrd-dark .divider-line {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    /* Social/Messenger contacts list at bottom */
+    .social-list {
+      display: flex;
+      gap: 1.4rem;
+      list-style: none;
+      align-items: center;
+    }
+
+    .social-link {
+      color: var(--primary); /* Crimson red by default */
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.03);
+      border: 1px solid rgba(216, 27, 36, 0.12); /* Subtle crimson outline */
+    }
+
+    body.claurrd-dark .social-link {
+      color: #ff4a5a; /* Light red/pink by default in dark mode */
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 74, 90, 0.2);
+    }
+
+    .social-link:hover {
+      color: var(--accent); /* Gold on hover */
+      background: var(--card-bg-light);
+      border-color: rgba(255, 208, 0, 0.45);
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 6px 15px rgba(216, 27, 36, 0.08);
+    }
+
+    body.claurrd-dark .social-link:hover {
+      background: var(--card-bg-dark);
+      color: var(--accent); /* Gold on hover */
+      border-color: rgba(255, 208, 0, 0.45);
+      box-shadow: 0 6px 15px rgba(255, 74, 90, 0.2);
+    }
+
+    .social-link svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    /* ==========================================================================
+       6. PRICES PAGE VIEW (.carrd-section)
+       ========================================================================== */
+    .prices-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      padding-bottom: 1.2rem;
+    }
+    
+    body.claurrd-dark .prices-header {
+      border-bottom-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .prices-title {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text-heading-light);
+      letter-spacing: -0.02em;
+    }
+
+    body.claurrd-dark .prices-title {
+      color: var(--text-heading-dark);
+    }
+
+    .back-btn {
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted-light);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0.5rem 1rem;
+      background: rgba(0, 0, 0, 0.03);
+      border-radius: 8px;
+      transition: var(--transition);
+    }
+
+    body.claurrd-dark .back-btn {
+      color: var(--text-muted-dark);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .back-btn:hover {
+      color: var(--primary);
+      background: rgba(216, 27, 36, 0.08);
+    }
+
+    body.claurrd-dark .back-btn:hover {
+      color: #ff4a5a;
+      background: rgba(255, 74, 90, 0.08);
+    }
+
+    .back-btn svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      stroke-width: 2.5;
+      fill: none;
+      transition: transform 0.3s;
+    }
+
+    .back-btn:hover svg {
+      transform: translateX(-4px);
+    }
+
+    .pricing-tables-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    .table-section h3 {
+      font-family: var(--font-heading);
+      font-size: 0.9rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--primary);
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    body.claurrd-dark .table-section h3 {
+      color: #ff4a5a;
+    }
+
+    .table-section h3 span {
+      background: currentColor;
+      width: 4px;
+      height: 14px;
+      border-radius: 2px;
+      display: inline-block;
+    }
+
+    /* Premium styled pricing table container */
+    .table-container {
+      overflow-x: auto;
+      border-radius: 16px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      background: rgba(0, 0, 0, 0.01);
+    }
+
+    body.claurrd-dark .table-container {
+      border-color: rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.01);
+    }
+
+    .table-component {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+      text-align: left;
+    }
+
+    .table-component th {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-heading-light);
+      padding: 0.8rem 1.2rem;
+      background: rgba(0, 0, 0, 0.02);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    body.claurrd-dark .table-component th {
+      color: var(--text-heading-dark);
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom-color: rgba(255, 255, 255, 0.06);
+    }
+
+    .table-component td {
+      padding: 0.9rem 1.2rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+      color: var(--text-body-light);
+    }
+
+    body.claurrd-dark .table-component td {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--text-body-dark);
+    }
+
+    .table-component tr:last-child td {
+      border-bottom: none;
+    }
+
+    .table-component td.val-col {
+      text-align: right;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--text-heading-light);
+    }
+
+    body.claurrd-dark .table-component td.val-col {
+      color: var(--text-heading-dark);
+    }
+
+    /* Highlighted crystal row (Stripe-inspired premium highlight) */
+    .table-component tr.highlighted-row {
+      background: rgba(216, 27, 36, 0.04);
+    }
+
+    body.claurrd-dark .table-component tr.highlighted-row {
+      background: rgba(255, 74, 90, 0.05);
+    }
+
+    .table-component tr.highlighted-row td {
+      font-weight: 600;
+    }
+
+    .table-component tr.highlighted-row td.val-col {
+      color: var(--primary);
+    }
+
+    body.claurrd-dark .table-component tr.highlighted-row td.val-col {
+      color: #ff4a5a;
+    }
+
+    /* Table item descriptor inline elements */
+    .item-desc-badge {
+      font-size: 0.68rem;
+      background: rgba(216, 27, 36, 0.08);
+      color: var(--primary);
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: 6px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    body.claurrd-dark .item-desc-badge {
+      background: rgba(255, 74, 90, 0.15);
+      color: #ff4a5a;
+    }
+
+    /* Installment terms warning callout */
+    .pricing-notice {
+      margin-top: 1.5rem;
+      padding: 1rem 1.2rem;
+      background: rgba(0, 0, 0, 0.02);
+      border-left: 3px solid var(--primary);
+      border-radius: 4px;
+      font-size: 0.85rem;
+      color: var(--text-muted-light);
+      line-height: 1.5;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    body.claurrd-dark .pricing-notice {
+      background: rgba(255, 255, 255, 0.02);
+      border-left-color: #ff4a5a;
+      color: var(--text-muted-dark);
+    }
+
+    .pricing-notice svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: var(--primary);
+      stroke-width: 2.5;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    body.claurrd-dark .pricing-notice svg {
+      stroke: #ff4a5a;
+    }
+
+    .pricing-notice strong {
+      color: var(--text-heading-light);
+    }
+
+    body.claurrd-dark .pricing-notice strong {
+      color: var(--text-heading-dark);
+    }
+
+    /* Carrd Standard Footer Credits */
+    .carrd-credits {
+      margin-top: 2.5rem;
+      text-align: center;
+      font-size: 0.72rem;
+      color: var(--text-muted-light);
+      letter-spacing: 0.05em;
+    }
+
+    body.claurrd-dark .carrd-credits {
+      color: var(--text-muted-dark);
+    }
+
+    .carrd-credits a {
+      color: inherit;
+      text-decoration: underline;
+      transition: var(--transition);
+    }
+
+    .carrd-credits a:hover {
+      color: var(--primary);
+    }
+
+    /* ==========================================================================
+       7. FLOATING UTILITIES (Dark Mode Button, Scroll Top Button)
+       ========================================================================== */
+    
+    /* Sun/Moon Toggle */
+    .claurrd-darkmode-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+      background: var(--card-bg-light);
+      border: var(--card-border-light);
+      color: var(--text-heading-light);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      transition: var(--transition);
+    }
+
+    body.claurrd-dark .claurrd-darkmode-btn {
+      background: var(--card-bg-dark);
+      border: var(--card-border-dark);
+      color: var(--text-heading-dark);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+    }
+
+    .claurrd-darkmode-btn:hover {
+      transform: scale(1.08) rotate(15deg);
+      border-color: var(--primary);
+    }
+
+    .claurrd-darkmode-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    .claurrd-darkmode-btn .sun-icon { display: block; }
+    .claurrd-darkmode-btn .moon-icon { display: none; }
+
+    body.claurrd-dark .claurrd-darkmode-btn .sun-icon { display: none; }
+    body.claurrd-dark .claurrd-darkmode-btn .moon-icon { display: block; }
+
+    /* Back-to-Top Button */
+    .claurrd-btt {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition);
+      z-index: 9980;
+      background: var(--card-bg-light);
+      border: var(--card-border-light);
+      color: var(--text-heading-light);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    body.claurrd-dark .claurrd-btt {
+      background: var(--card-bg-dark);
+      border: var(--card-border-dark);
+      color: var(--text-heading-dark);
+    }
+
+    .claurrd-btt.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .claurrd-btt:hover {
+      transform: translateY(-3px);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .claurrd-btt svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.5;
+    }
+
+    /* ==========================================================================
+       8. CARRD STYLE LOADING SCREEN
+       ========================================================================== */
+    #loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #7a0e14;
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.5s ease, visibility 0.5s;
+    }
+
+    body.claurrd-dark.is-loading #loading-overlay {
+      background: #1c0407;
+    }
+
+    body.is-loaded #loading-overlay {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(255, 255, 255, 0.15);
+      border-top-color: #faf8f5;
+      border-radius: 50%;
+      animation: spin 1s infinite linear;
+    }
+
+    /* ==========================================================================
+       9. ANIMATIONS
+       ========================================================================== */
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes rotateHUD {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes rotateHUDInverse {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(-360deg); }
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* ==========================================================================
+       10. RESPONSIVE MEDIA QUERIES
+       ========================================================================== */
+    @media (max-width: 850px) {
+      body {
+        justify-content: center;
+      }
+      #wrapper {
+        padding: 3rem 1.5rem;
+        justify-content: center;
+      }
+      .sticker-topleft {
+        width: 50px;
+        height: 50px;
+        top: 17px;
+        left: 20px;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .card {
+        padding: 2.2rem;
+        border-radius: 30px;
+      }
+      .profile-horizontal-layout {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.8rem;
+        align-items: center;
+      }
+      .social-list {
+        justify-content: center;
+      }
+      .carrd-section {
+        width: calc(100% - 4.4rem);
+      }
+      .table-component th, .table-component td {
+        padding: 0.75rem 0.6rem;
+        font-size: 0.85rem;
+      }
+    }
+
+    /* ==========================================================================
+       11. CUTE STICKER DECORATIONS (Himeko, Klee, Mayano, Saber)
+       ========================================================================== */
+
+    /* Top-Left Mascot sticker for symmetry */
+    .sticker-topleft {
+      position: fixed;
+      top: 15px;
+      left: 20px;
+      z-index: 9999;
+      width: 75px;
+      height: 75px;
+      pointer-events: auto;
+      transition: var(--transition);
+      opacity: 0.9;
+    }
+
+    .sticker-topleft:hover {
+      transform: scale(1.15) rotate(-8deg);
+      opacity: 1;
+      cursor: pointer;
+    }
+
+    .sticker-topleft img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.15));
+    }
+
+    /* Floating speech/mood bubble above avatar */
+    .mood-bubble {
+      position: absolute;
+      top: -65px;
+      left: 50%;
+      transform: translateX(-50%) scale(0);
+      background: var(--card-bg-light);
+      border: 2px solid var(--primary);
+      border-radius: 16px;
+      padding: 6px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 8px 24px rgba(216, 27, 36, 0.15);
+      z-index: 10;
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
+      pointer-events: none;
+      white-space: nowrap;
+      opacity: 0;
+    }
+
+    body.claurrd-dark .mood-bubble {
+      background: var(--card-bg-dark);
+      border-color: #ff4a5a;
+      box-shadow: 0 8px 24px rgba(255, 74, 90, 0.2);
+    }
+
+    .mood-bubble.visible {
+      transform: translateX(-50%) scale(1);
+      opacity: 1;
+    }
+
+    .mood-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 8px 8px 0;
+      border-style: solid;
+      border-color: var(--primary) transparent;
+      display: block;
+      width: 0;
+    }
+
+    body.claurrd-dark .mood-bubble::after {
+      border-color: #ff4a5a transparent;
+    }
+
+    .mood-bubble-img {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+    }
+
+    .mood-bubble-text {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-heading-light);
+    }
+
+    body.claurrd-dark .mood-bubble-text {
+      color: var(--text-heading-dark);
+    }
+
+    /* Floating Mascot sticker at bottom right */
+    .sticker-mascot {
+      position: fixed;
+      bottom: -20px;
+      right: 95px;
+      z-index: 9900;
+      width: 140px;
+      height: 140px;
+      pointer-events: auto;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transform: translateY(30px);
+      opacity: 0.9;
+    }
+
+    .sticker-mascot:hover {
+      transform: translateY(0) scale(1.1) rotate(5deg);
+      opacity: 1;
+      cursor: pointer;
+    }
+
+    .sticker-mascot img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.2));
+    }
+
+    /* Large Background Character Art (Himeko) */
+    .bg-character {
+      position: fixed;
+      bottom: 0;
+      left: -20px;
+      width: 50%;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 1;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+      padding-left: 2rem;
+      opacity: 0;
+      transform: translateX(-50px);
+      transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    body.is-loaded .bg-character {
+      opacity: 0.95;
+      transform: translateX(0);
+    }
+
+    .bg-character img {
+      max-height: 95vh;
+      max-width: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 20px 50px rgba(0, 0, 0, 0.3));
+    }
+
+    /* Inline sticker decoration for heading spans & badges */
+    .inline-sticker {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+      vertical-align: middle;
+      display: inline-block;
+      margin-left: 6px;
+      animation: floatMini 3s ease-in-out infinite alternate;
+    }
+
+    .badge-sticker {
+      width: 16px;
+      height: 16px;
+      object-fit: contain;
+      vertical-align: middle;
+      margin-left: 4px;
+    }
+
+    @keyframes floatMini {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-4px); }
+    }
+
+    @media (max-width: 1000px) {
+      .sticker-mascot {
+        right: 80px;
+        width: 100px;
+        height: 100px;
+      }
+      .bg-character {
+        display: none;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .sticker-mascot {
+        display: none;
+      }
+    }
+  </style>
+
+</head>
+<body class="is-loading">
+
+  <!-- Top-Left Mascot Sticker (Saber April Fools) -->
+  <div class="sticker-topleft" id="global-topleft-sticker" title="Excalibur!">
+    <img src="https://static.wikia.nocookie.net/fategrandorder/images/9/97/S002_AprilFool.webp/revision/latest" referrerpolicy="no-referrer" alt="Saber Chibi Sticker">
+  </div>
+
+  <!-- Loading Screen -->
+  <div id="loading-overlay">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Twinkling Sparkles + Nebula Glows Background -->
+  <div class="bg-elements">
+    <div class="radial-nebula"></div>
+    
+    <!-- Background Character Render (Himeko) -->
+    <div class="bg-character">
+      <img src="https://static.wikia.nocookie.net/houkai-star-rail/images/b/b9/Character_Himeko_%E2%80%A2_Nova_Splash_Art.png/revision/latest/scale-to-width-down/1200?cb=20260520032526" referrerpolicy="no-referrer" alt="Himeko Nova Splash Art">
+    </div>
+    
+    <!-- Sparkles matching template layout -->
+    <div class="sparkle" style="top: 15%; left: 12%; width: 26px; animation-duration: 5.5s;">
+      <svg viewBox="0 0 24 24"><path d="M12 0L14.8 9.2L24 12L14.8 14.8L12 24L9.2 14.8L0 12L9.2 9.2L12 0Z"/></svg>
+    </div>
+    <div class="sparkle" style="top: 24%; left: 42%; width: 14px; animation-duration: 4s; animation-delay: 1.5s;">
+      <svg viewBox="0 0 24 24"><path d="M12 0L14.8 9.2L24 12L14.8 14.8L12 24L9.2 14.8L0 12L9.2 9.2L12 0Z"/></svg>
+    </div>
+    <div class="sparkle" style="top: 50%; left: 7%; width: 32px; animation-duration: 6s; animation-delay: 0.8s;">
+      <svg viewBox="0 0 24 24"><path d="M12 0L14.8 9.2L24 12L14.8 14.8L12 24L9.2 14.8L0 12L9.2 9.2L12 0Z"/></svg>
+    </div>
+    <div class="sparkle" style="top: 75%; left: 16%; width: 22px; animation-duration: 4.8s; animation-delay: 2.2s;">
+      <svg viewBox="0 0 24 24"><path d="M12 0L14.8 9.2L24 12L14.8 14.8L12 24L9.2 14.8L0 12L9.2 9.2L12 0Z"/></svg>
+    </div>
+    <div class="sparkle" style="top: 88%; left: 30%; width: 18px; animation-duration: 5s; animation-delay: 1s;">
+      <svg viewBox="0 0 24 24"><path d="M12 0L14.8 9.2L24 12L14.8 14.8L12 24L9.2 14.8L0 12L9.2 9.2L12 0Z"/></svg>
+    </div>
+    <div class="sparkle" style="top: 35%; left: 24%; width: 15px; animation-duration: 4.5s; animation-delay: 3.2s;">
+      <svg viewBox="0 0 24 24"><path d="M12 0L14.8 9.2L24 12L14.8 14.8L12 24L9.2 14.8L0 12L9.2 9.2L12 0Z"/></svg>
+    </div>
+    <div class="sparkle" style="top: 62%; left: 36%; width: 24px; animation-duration: 5.2s; animation-delay: 1.8s;">
+      <svg viewBox="0 0 24 24"><path d="M12 0L14.8 9.2L24 12L14.8 14.8L12 24L9.2 14.8L0 12L9.2 9.2L12 0Z"/></svg>
+    </div>
+    <div class="sparkle" style="top: 18%; left: 75%; width: 16px; animation-duration: 4.2s; animation-delay: 0.5s;">
+      <svg viewBox="0 0 24 24"><path d="M12 0L14.8 9.2L24 12L14.8 14.8L12 24L9.2 14.8L0 12L9.2 9.2L12 0Z"/></svg>
+    </div>
+    <div class="sparkle" style="top: 85%; left: 78%; width: 22px; animation-duration: 5.6s; animation-delay: 2.8s;">
+      <svg viewBox="0 0 24 24"><path d="M12 0L14.8 9.2L24 12L14.8 14.8L12 24L9.2 14.8L0 12L9.2 9.2L12 0Z"/></svg>
+    </div>
+  </div>
+
+  <div id="wrapper">
+    <div class="card">
+      <div class="card-spotlight" id="card-glow"></div>
+      
+      <!-- ==============================================================
+           SECTION 1: HOME PANEL
+           ============================================================== -->
+      <div id="home" class="carrd-section active">
+        <div class="profile-horizontal-layout">
+          
+          <!-- Avatar HUD container -->
+          <div class="avatar-wrapper">
+            <div class="avatar-hud-outer"></div>
+            <div class="avatar-hud-inner"></div>
+            <img src="./ryuka.jpg" alt="Ryuka Portrait Avatar" class="avatar-image">
+            <span class="status-dot" title="Active On Patrol"></span>
+            
+            <!-- Mood Bubble Container -->
+            <div class="mood-bubble" id="avatar-mood-bubble">
+              <img src="https://static.wikia.nocookie.net/houkai-star-rail/images/1/1e/Sticker_PPG_02_Himeko_01.png" referrerpolicy="no-referrer" alt="Mood Emoji" class="mood-bubble-img" id="mood-img">
+              <span class="mood-bubble-text" id="mood-text">Operational</span>
+            </div>
+          </div>
+          
+          <!-- Detail Column -->
+          <div class="profile-details">
+            <h1 class="profile-name">Ryuka</h1>
+            
+            <!-- Rotating Typewriter tag -->
+            <div class="role-text-container">
+              <span>➔</span>
+              <span class="role-text-typing"></span><span class="claurrd-cursor">|</span>
+            </div>
+            
+            <div class="profile-bio">
+              <p>
+                Operations Commander overseeing strategic combat theater across 
+                <span class="game-badge badge-genshin">
+                  <img src="https://play-lh.googleusercontent.com/LwMY6l1p8NYifo_lky_JUAD8q0zEoNg7EGteB4ZyiBozT7KOjHVvZjzM6-qAUb1yPSs=s48-rw" alt="Genshin Impact">
+                  Genshin Impact <img class="badge-sticker" src="https://static.wikia.nocookie.net/gensin-impact/images/4/48/Icon_Emoji_Paimon%27s_Paintings_07_Klee_3.png" referrerpolicy="no-referrer" alt="Klee">
+                </span>, 
+                <span class="game-badge badge-hsr">
+                  <img src="https://play-lh.googleusercontent.com/YwGBVEWhJ7AE0ygHCcogb1g5bUkBYd03eO5MZGqRAdODFBUwOvy_Fv-zerNOEJ6j4OXxZnKhjrBlXaeLmujZnA=s48-rw" alt="Honkai: Star Rail">
+                  Honkai: Star Rail <img class="badge-sticker" src="https://static.wikia.nocookie.net/houkai-star-rail/images/1/1e/Sticker_PPG_02_Himeko_01.png" referrerpolicy="no-referrer" alt="Himeko">
+                </span>, 
+                <span class="game-badge badge-zzz">
+                  <img src="https://play-lh.googleusercontent.com/jvEKKqz_Kv-XXjrnMgWZ8dbGNIRGns_rdciBpGFk94hsdNoq42_HSu8llcRUrz2Dow=s48-rw" alt="Zenless Zone Zero">
+                  ZZZ
+                </span>, 
+                <span class="game-badge badge-wuwa">
+                  <img src="https://play-lh.googleusercontent.com/yRPqiKLJCSt1ao-e8F2It3RZXWInu68Jhm4GWKz7q7xmu4c6UihAGW0FaeNdxVOKR8oO=s48-rw" alt="Wuthering Waves">
+                  Wuthering Waves
+                </span> & 
+                <span class="game-badge badge-fgo">
+                  <img src="https://play-lh.googleusercontent.com/35wW4EuYqdU1ItNGOcXQc7elbbEIgk1LCE693GOJrIyc2NLC8dGeMs1fchPepzZim_Sif-Q-aFJhyDqr1JEx=s48-rw" alt="Fate/Grand Order">
+                  FGO <img class="badge-sticker" src="https://static.wikia.nocookie.net/fategrandorder/images/9/97/S002_AprilFool.webp/revision/latest" referrerpolicy="no-referrer" alt="Saber">
+                </span>.
+              </p>
+              <p>
+                Provisioning high-caliber game weaponry (Top-Up supply), deploying expert combat mercenaries (Boosting/Exploration contracts), and scouting bespoke assets.
+              </p>
+              
+              <!-- Premium Trigger Button -->
+              <a href="#prices" class="prices-trigger-btn">
+                <span>view services</span>
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </div>
+          
+        </div>
+
+        <div class="divider-line"></div>
+
+        <!-- Inline social contact links matching template -->
+        <ul class="social-list">
+          <li>
+            <a href="https://m.me/kotomine.golshi.ryuka" target="_blank" rel="noopener noreferrer" class="social-link" title="Direct Messenger Chat">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 2C6.477 2 2 6.145 2 11.243c0 2.908 1.448 5.501 3.702 7.189V22l3.409-1.871A10.14 10.14 0 0 0 12 20.485c5.523 0 10-4.145 10-9.242C22 6.145 17.523 2 12 2zm1.093 11.968l-2.583-2.753-5.045 2.753 5.539-5.882 2.656 2.753 4.972-2.753-5.539 5.882z"/>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.facebook.com/messages/e2ee/t/9818982478208270" target="_blank" rel="noopener noreferrer" class="social-link" title="Messenger Secure Thread">
+              <svg viewBox="0 0 24 24">
+                <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.facebook.com/kotomine.golshi.ryuka" target="_blank" rel="noopener noreferrer" class="social-link" title="Facebook Commander Profile">
+              <svg viewBox="0 0 24 24">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- ==============================================================
+           SECTION 2: PRICES PANEL
+           ============================================================== -->
+      <div id="prices" class="carrd-section">
+        <div class="prices-header">
+          <h2 class="prices-title">Operational Tariffs</h2>
+          <a href="#home" class="back-btn">
+            <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <span>Back</span>
+          </a>
+        </div>
+
+        <div class="pricing-tables-wrapper">
+          <!-- Game Crystals Topup Supply -->
+          <div class="table-section">
+            <h3><span></span>Crystal & Saint Quartz Reserves Allocation <img class="inline-sticker" src="https://static.wikia.nocookie.net/houkai-star-rail/images/5/57/Sticker_PPG_11_Himeko_01.png" referrerpolicy="no-referrer" alt="Himeko Star"></h3>
+            <div class="table-container">
+              <table class="table-component">
+                <thead>
+                  <tr>
+                    <th>Quantity (HSR, Genshin, ZZZ, WW, FGO)</th>
+                    <th style="text-align: right;">Tariff Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>60 Crystals / 5 SQ</td>
+                    <td class="val-col">45,000đ</td>
+                  </tr>
+                  <tr>
+                    <td>330 Crystals / 18 SQ</td>
+                    <td class="val-col">220,000đ</td>
+                  </tr>
+                  <tr>
+                    <td>1,090 Crystals / 41 SQ</td>
+                    <td class="val-col">650,000đ</td>
+                  </tr>
+                  <tr>
+                    <td>2,240 Crystals / 76 SQ</td>
+                    <td class="val-col">1,480,000đ</td>
+                  </tr>
+                  <tr>
+                    <td>3,880 Crystals / 120 SQ</td>
+                    <td class="val-col">2,270,000đ</td>
+                  </tr>
+                  <tr class="highlighted-row">
+                    <td>8,080 Crystals / 167 SQ <span class="item-desc-badge">Best Value</span></td>
+                    <td class="val-col">4,400,000đ</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Boosting Services Contracts -->
+          <div class="table-section">
+            <h3><span></span>Tactical Mercenary Contracts <img class="inline-sticker" src="https://static.wikia.nocookie.net/gensin-impact/images/4/48/Icon_Emoji_Paimon%27s_Paintings_07_Klee_3.png" referrerpolicy="no-referrer" alt="Klee Waving"></h3>
+            <div class="table-container">
+              <table class="table-component">
+                <thead>
+                  <tr>
+                    <th>Mission Directive</th>
+                    <th style="text-align: right;">Contract Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Archon Quests Campaign (Per Act)</td>
+                    <td class="val-col">50,000đ - 150,000đ</td>
+                  </tr>
+                  <tr>
+                    <td>100% Regional Exploration (Mondstadt, Liyue, v.v.)</td>
+                    <td class="val-col">200,000đ - 350,000đ</td>
+                  </tr>
+                  <tr>
+                    <td>FGO Main Story Clearing (Per Singularity/Lostbelt)</td>
+                    <td class="val-col">80,000đ - 250,000đ</td>
+                  </tr>
+                  <tr>
+                    <td>FGO Event Farming & Daily AP Burn (Weekly)</td>
+                    <td class="val-col">100,000đ - 200,000đ</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Safe provision details -->
+        <div class="pricing-notice">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM12 8v5M12 16h.01"/></svg>
+          <div>
+            All operations executed through fully-secure official avenues. <strong>0% interest installment schedules</strong> are supported upon checkout. Security of accounts is absolutely guaranteed.
+          </div>
+        </div>
+      </div>
+
+      <!-- Carrd Credits footer -->
+      <div class="carrd-credits">
+        Made with <a href="https://carrd.co" target="_blank" rel="noopener noreferrer">Carrd</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Floating Mascot Sticker (Mayano Top Gun) -->
+  <div class="sticker-mascot" id="global-mascot" title="Click to cycle avatar mood!">
+    <img src="https://i.giphy.com/nIcTVaqw1Xi3bApI6H.gif" alt="Mayano Top Gun Sticker" id="mascot-img">
+  </div>
+
+  <!-- FLOATING UTILITY CONTROLS -->
+  <button class="claurrd-darkmode-btn" aria-label="Toggle Night Mode">
+    <svg class="sun-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+    <svg class="moon-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+
+  <button class="claurrd-btt" aria-label="Back to top">
+    <svg viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>
+  </button>
+
+  <script>
+    // 1. Page loading overlay handler
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        document.body.classList.remove('is-loading');
+        document.body.classList.add('is-loaded');
+      }, 500);
+    });
+
+    // 2. Hash Routing Handler
+    function handleRouting() {
+      var hash = window.location.hash || '#home';
+      var homeSection = document.getElementById('home');
+      var pricesSection = document.getElementById('prices');
+
+      if (hash === '#prices') {
+        homeSection.classList.remove('active');
+        pricesSection.classList.add('active');
+      } else {
+        pricesSection.classList.remove('active');
+        homeSection.classList.add('active');
+      }
+    }
+
+    window.addEventListener('hashchange', handleRouting);
+    window.addEventListener('load', handleRouting);
+
+    // 3. spotlight mouse follower border glow (awesome-design-md feature)
+    var card = document.querySelector('.card');
+    var glow = document.getElementById('card-glow');
+
+    if (card && glow) {
+      card.addEventListener('mousemove', function(e) {
+        var rect = card.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+        glow.style.left = x + 'px';
+        glow.style.top = y + 'px';
+        glow.style.opacity = '1';
+      });
+
+      card.addEventListener('mouseleave', function() {
+        glow.style.opacity = '0';
+      });
+    }
+
+    // 4. Dark Mode Toggle persistent sessionStorage script
+    (function() {
+      var btn = document.querySelector('.claurrd-darkmode-btn');
+      var body = document.body;
+      
+      var currentTheme = sessionStorage.getItem('claurrd-theme') || 'light';
+      if (currentTheme === 'dark') {
+        body.classList.add('claurrd-dark');
+        applyTranslucentTheme(true);
+      } else {
+        body.classList.remove('claurrd-dark');
+        applyTranslucentTheme(false);
+      }
+
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var isDark = body.classList.toggle('claurrd-dark');
+        sessionStorage.setItem('claurrd-theme', isDark ? 'dark' : 'light');
+        applyTranslucentTheme(isDark);
+      });
+
+      function applyTranslucentTheme(isDark) {
+        var cards = document.querySelectorAll('.card');
+        cards.forEach(function(c) {
+          if (isDark) {
+            c.style.setProperty('background', 'rgba(18, 11, 13, 0.94)', 'important');
+            c.style.setProperty('border-color', 'rgba(255, 74, 90, 0.2)', 'important');
+          } else {
+            c.style.setProperty('background', 'rgba(253, 252, 249, 0.96)', 'important');
+            c.style.setProperty('border-color', 'rgba(230, 46, 54, 0.12)', 'important');
+          }
+        });
+      }
+    })();
+
+    // 5. Typing Effect cycling roles
+    (function() {
+      var roles = [
+        'Operations Tactical Commander',
+        'Crystals Top-Up Provider',
+        'Bespoke Account Procurement',
+        'Elite Mercenary Boosting Contractor'
+      ];
+      
+      var target = document.querySelector('.role-text-typing');
+      if (!target) return;
+      
+      var roleIdx = 0;
+      var charIdx = 0;
+      var deleting = false;
+      
+      function typeCycle() {
+        var text = roles[roleIdx];
+        if (deleting) {
+          target.textContent = text.substring(0, charIdx - 1);
+          charIdx--;
+        } else {
+          target.textContent = text.substring(0, charIdx + 1);
+          charIdx++;
+        }
+        
+        var speed = deleting ? 40 : 80;
+        
+        if (!deleting && charIdx === text.length) {
+          speed = 2000;
+          deleting = true;
+        } else if (deleting && charIdx === 0) {
+          deleting = false;
+          roleIdx = (roleIdx + 1) % roles.length;
+          speed = 500;
+        }
+        
+        setTimeout(typeCycle, speed);
+      }
+      
+      window.addEventListener('load', function() {
+        setTimeout(typeCycle, 800);
+      });
+    })();
+
+    // 6. Back-to-Top Button Handler
+    (function() {
+      var btt = document.querySelector('.claurrd-btt');
+      if (!btt) return;
+
+      var running = false;
+      window.addEventListener('scroll', function() {
+        if (!running) {
+          window.requestAnimationFrame(function() {
+            var pos = window.pageYOffset || document.documentElement.scrollTop;
+            if (pos > 300) {
+              btt.classList.add('visible');
+            } else {
+              btt.classList.remove('visible');
+            }
+            running = false;
+          });
+          running = true;
+        }
+      });
+
+      btt.addEventListener('click', function(e) {
+        e.stopPropagation();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    })();
+
+    // 7. Interactive mood bubbles and mascot click toggle
+    (function() {
+      var moodImg = document.getElementById('mood-img');
+      var moodText = document.getElementById('mood-text');
+      var moodBubble = document.getElementById('avatar-mood-bubble');
+      var mascot = document.getElementById('global-mascot');
+      var topleftSticker = document.getElementById('global-topleft-sticker');
+      var avatar = document.querySelector('.avatar-image');
+      
+      var moods = [
+        {
+          img: 'https://static.wikia.nocookie.net/houkai-star-rail/images/1/1e/Sticker_PPG_02_Himeko_01.png',
+          text: 'Himeko: Hi!',
+          mascot: 'https://i.giphy.com/nIcTVaqw1Xi3bApI6H.gif'
+        },
+        {
+          img: 'https://static.wikia.nocookie.net/houkai-star-rail/images/f/fe/Sticker_PPG_04_Himeko_01.png',
+          text: 'Coffee Time',
+          mascot: 'https://static.wikia.nocookie.net/houkai-star-rail/images/f/fe/Sticker_PPG_04_Himeko_01.png'
+        },
+        {
+          img: 'https://static.wikia.nocookie.net/gensin-impact/images/4/48/Icon_Emoji_Paimon%27s_Paintings_07_Klee_3.png',
+          text: 'Klee: Nice!',
+          mascot: 'https://i.giphy.com/nIcTVaqw1Xi3bApI6H.gif'
+        },
+        {
+          img: 'https://static.wikia.nocookie.net/gensin-impact/images/8/81/Icon_Emoji_Paimon%27s_Paintings_07_Klee_4.png',
+          text: 'Klee: Oh no...',
+          mascot: 'https://static.wikia.nocookie.net/houkai-star-rail/images/5/57/Sticker_PPG_11_Himeko_01.png'
+        },
+        {
+          img: 'https://static.wikia.nocookie.net/fategrandorder/images/9/97/S002_AprilFool.webp/revision/latest',
+          text: 'Saber: Excalibur!',
+          mascot: 'https://i.giphy.com/nIcTVaqw1Xi3bApI6H.gif'
+        }
+      ];
+      
+      var currentMoodIdx = 0;
+      var transitionTimeout;
+      var moodInterval;
+      
+      function triggerMood() {
+        if (transitionTimeout) clearTimeout(transitionTimeout);
+        
+        // Pop down first
+        moodBubble.classList.remove('visible');
+        
+        // Wait for scale(0) animation to complete, then change content and pop up
+        transitionTimeout = setTimeout(function() {
+          var activeMood = moods[currentMoodIdx];
+          
+          moodImg.src = activeMood.img;
+          moodText.textContent = activeMood.text;
+          
+          // Play bounce animation on avatar
+          avatar.style.transform = 'scale(0.9)';
+          setTimeout(function() {
+            avatar.style.transform = '';
+          }, 150);
+          
+          // Pop up
+          moodBubble.classList.add('visible');
+          
+          currentMoodIdx = (currentMoodIdx + 1) % moods.length;
+        }, 300);
+      }
+      
+      function startMoodLoop() {
+        if (moodInterval) clearInterval(moodInterval);
+        moodInterval = setInterval(function() {
+          triggerMood();
+        }, 6000); // Cycles every 6 seconds
+      }
+      
+      function handleUserTrigger() {
+        triggerMood();
+        startMoodLoop(); // Reset 6-second timer
+      }
+      
+      if (avatar) {
+        avatar.addEventListener('click', function(e) {
+          e.stopPropagation();
+          handleUserTrigger();
+        });
+      }
+      
+      if (mascot) {
+        mascot.addEventListener('click', function(e) {
+          e.stopPropagation();
+          handleUserTrigger();
+        });
+      }
+
+      if (topleftSticker) {
+        topleftSticker.addEventListener('click', function(e) {
+          e.stopPropagation();
+          handleUserTrigger();
+        });
+      }
+      
+      window.addEventListener('load', function() {
+        // Show mascot floating up
+        setTimeout(function() {
+          if (mascot) {
+            mascot.style.transform = 'translateY(0)';
+          }
+          triggerMood();
+          startMoodLoop();
+        }, 2500);
+      });
+    })();
+  </script>
+</body>
+</html>
