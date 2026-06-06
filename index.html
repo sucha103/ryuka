@@ -1703,31 +1703,31 @@
           
           <div class="game-grid">
             <!-- Genshin Impact -->
-            <div class="game-card" onclick="openGamePanel('genshin')">
+            <div class="game-card" onclick="window.location.hash = '#prices-genshin'">
               <img src="https://play-lh.googleusercontent.com/LwMY6l1p8NYifo_lky_JUAD8q0zEoNg7EGteB4ZyiBozT7KOjHVvZjzM6-qAUb1yPSs=s48-rw" referrerpolicy="no-referrer" alt="Genshin Impact">
               <h4>Genshin Impact</h4>
               <span class="game-status-tag active">Active</span>
             </div>
             <!-- Honkai: Star Rail -->
-            <div class="game-card" onclick="openGamePanel('hsr')">
+            <div class="game-card" onclick="window.location.hash = '#prices-hsr'">
               <img src="https://play-lh.googleusercontent.com/YwGBVEWhJ7AE0ygHCcogb1g5bUkBYd03eO5MZGqRAdODFBUwOvy_Fv-zerNOEJ6j4OXxZnKhjrBlXaeLmujZnA=s48-rw" referrerpolicy="no-referrer" alt="Honkai: Star Rail">
               <h4>Honkai: Star Rail</h4>
               <span class="game-status-tag coming-soon">Soon</span>
             </div>
             <!-- Zenless Zone Zero -->
-            <div class="game-card" onclick="openGamePanel('zzz')">
+            <div class="game-card" onclick="window.location.hash = '#prices-zzz'">
               <img src="https://play-lh.googleusercontent.com/jvEKKqz_Kv-XXjrnMgWZ8dbGNIRGns_rdciBpGFk94hsdNoq42_HSu8llcRUrz2Dow=s48-rw" referrerpolicy="no-referrer" alt="Zenless Zone Zero">
               <h4>Zenless Zone Zero</h4>
               <span class="game-status-tag coming-soon">Soon</span>
             </div>
             <!-- Wuthering Waves -->
-            <div class="game-card" onclick="openGamePanel('wuwa')">
+            <div class="game-card" onclick="window.location.hash = '#prices-wuwa'">
               <img src="https://play-lh.googleusercontent.com/yRPqiKLJCSt1ao-e8F2It3RZXWInu68Jhm4GWKz7q7xmu4c6UihAGW0FaeNdxVOKR8oO=s48-rw" referrerpolicy="no-referrer" alt="Wuthering Waves">
               <h4>Wuthering Waves</h4>
               <span class="game-status-tag coming-soon">Soon</span>
             </div>
             <!-- Fate/Grand Order -->
-            <div class="game-card" onclick="openGamePanel('fgo')">
+            <div class="game-card" onclick="window.location.hash = '#prices-fgo'">
               <img src="https://play-lh.googleusercontent.com/35wW4EuYqdU1ItNGOcXQc7elbbEIgk1LCE693GOJrIyc2NLC8dGeMs1fchPepzZim_Sif-Q-aFJhyDqr1JEx=s48-rw" referrerpolicy="no-referrer" alt="Fate/Grand Order">
               <h4>Fate/Grand Order</h4>
               <span class="game-status-tag coming-soon">Soon</span>
@@ -1745,7 +1745,7 @@
                 <span>Exchange money: 1 USD = 55 ₱</span>
               </div>
             </div>
-            <button class="panel-header-back" onclick="backToGameSelect()">
+            <button class="panel-header-back" onclick="window.location.hash = '#prices'">
               <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
               <span>Back</span>
             </button>
@@ -3308,7 +3308,7 @@
         <div id="panel-coming-soon" class="services-view-panel">
           <div class="prices-header" style="margin-bottom: 2rem;">
             <h2 class="prices-title" id="coming-soon-title">Operational Sectors</h2>
-            <button class="panel-header-back" onclick="backToGameSelect()">
+            <button class="panel-header-back" onclick="window.location.hash = '#prices'">
               <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
               <span>Back</span>
             </button>
@@ -3363,10 +3363,17 @@
       var homeSection = document.getElementById('home');
       var pricesSection = document.getElementById('prices');
 
-      if (hash === '#prices') {
+      if (hash.indexOf('#prices') === 0) {
         homeSection.classList.remove('active');
         pricesSection.classList.add('active');
-        backToGameSelect(); // Reset to game selection when prices loads
+        
+        // Show correct sub-panel based on hash suffix
+        if (hash === '#prices') {
+          renderSubPanel('select');
+        } else {
+          var gameId = hash.replace('#prices-', '');
+          renderSubPanel(gameId);
+        }
       } else {
         pricesSection.classList.remove('active');
         homeSection.classList.add('active');
@@ -3376,8 +3383,8 @@
     window.addEventListener('hashchange', handleRouting);
     window.addEventListener('load', handleRouting);
 
-    // Switch between Game Selection and specific Game Panel
-    function openGamePanel(gameId) {
+    // Render correct services panel based on current state
+    function renderSubPanel(panelId) {
       // Hide all panels
       var panels = document.querySelectorAll('.services-view-panel');
       panels.forEach(function(panel) {
@@ -3385,7 +3392,13 @@
         panel.style.display = 'none';
       });
 
-      if (gameId === 'genshin') {
+      if (panelId === 'select') {
+        var selectPanel = document.getElementById('panel-game-select');
+        selectPanel.style.display = 'block';
+        setTimeout(function() {
+          selectPanel.classList.add('active');
+        }, 10);
+      } else if (panelId === 'genshin') {
         var genshinPanel = document.getElementById('panel-genshin');
         genshinPanel.style.display = 'block';
         setTimeout(function() {
@@ -3421,26 +3434,12 @@
           'fgo': 'Fate/Grand Order Operations'
         };
         
-        comingSoonTitle.textContent = gameNames[gameId] || 'Operational Sector';
+        comingSoonTitle.textContent = gameNames[panelId] || 'Operational Sector';
         comingSoonPanel.style.display = 'block';
         setTimeout(function() {
           comingSoonPanel.classList.add('active');
         }, 10);
       }
-    }
-
-    function backToGameSelect() {
-      var panels = document.querySelectorAll('.services-view-panel');
-      panels.forEach(function(panel) {
-        panel.classList.remove('active');
-        panel.style.display = 'none';
-      });
-
-      var selectPanel = document.getElementById('panel-game-select');
-      selectPanel.style.display = 'block';
-      setTimeout(function() {
-        selectPanel.classList.add('active');
-      }, 10);
     }
 
     // Switch specific category under Genshin Impact tab layout
