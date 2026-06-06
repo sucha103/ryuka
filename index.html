@@ -1394,27 +1394,22 @@
 
     /* Genshin Sidebar Category Icons */
     .category-btn img {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 1px solid rgba(216, 27, 36, 0.2);
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
       flex-shrink: 0;
-      background: rgba(255, 255, 255, 0.15);
       transition: var(--transition);
-    }
-
-    body.claurrd-dark .category-btn img {
-      border-color: rgba(255, 74, 90, 0.3);
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
     }
 
     .category-btn.active img {
-      border-color: rgba(255, 255, 255, 0.7);
-      transform: scale(1.15);
+      transform: scale(1.2) translateY(-1px);
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.25));
     }
 
     .category-btn:hover img {
-      transform: scale(1.15);
+      transform: scale(1.2) translateY(-1px);
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.25));
     }
 
     .category-nav {
@@ -1785,31 +1780,31 @@
             <!-- Left Sidebar for Category buttons -->
             <div class="genshin-sidebar">
               <button class="category-btn active" onclick="switchCategory('cat-char-ascension', this)">
-                <img src="https://upload-os-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_Bennett.png" alt="Character Ascension">
+                <img src="https://static.wikia.nocookie.net/gensin-impact/images/1/13/Icon_Emoji_Paimon%27s_Paintings_43_Bennett_1.png" alt="Character Ascension">
                 <span>Character Ascension</span>
               </button>
               <button class="category-btn" onclick="switchCategory('cat-weapon-ascension', this)">
-                <img src="https://upload-os-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_Zhongli.png" alt="Weapon Ascension">
+                <img src="https://static.wikia.nocookie.net/gensin-impact/images/4/48/Icon_Emoji_Paimon%27s_Paintings_12_Zhongli_1.png" alt="Weapon Ascension">
                 <span>Weapon Ascension</span>
               </button>
               <button class="category-btn" onclick="switchCategory('cat-talents', this)">
-                <img src="https://upload-os-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_Lisa.png" alt="Talent Leveling">
+                <img src="https://static.wikia.nocookie.net/gensin-impact/images/c/c6/Icon_Emoji_Paimon%27s_Paintings_01_Lisa_1.png" alt="Talent Leveling">
                 <span>Talent Leveling</span>
               </button>
               <button class="category-btn" onclick="switchCategory('cat-exploration', this)">
-                <img src="https://upload-os-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_Klee.png" alt="Regional Exploration">
+                <img src="https://static.wikia.nocookie.net/gensin-impact/images/1/1c/Icon_Emoji_Paimon%27s_Paintings_25_Klee_2.png" alt="Regional Exploration">
                 <span>Regional Exploration</span>
               </button>
               <button class="category-btn" onclick="switchCategory('cat-quests', this)">
-                <img src="https://upload-os-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_PlayerGirl.png" alt="Quest Clears">
+                <img src="https://static.wikia.nocookie.net/gensin-impact/images/9/96/Icon_Emoji_Paimon%27s_Paintings_01_Lumine_1.png" alt="Quest Clears">
                 <span>Quest Clears</span>
               </button>
               <button class="category-btn" onclick="switchCategory('cat-game-modes', this)">
-                <img src="https://upload-os-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_Cyno.png" alt="Game Modes">
+                <img src="https://static.wikia.nocookie.net/gensin-impact/images/d/de/Icon_Emoji_Paimon%27s_Paintings_18_Cyno_1.png" alt="Game Modes">
                 <span>Game Modes</span>
               </button>
               <button class="category-btn" onclick="switchCategory('cat-misc-materials', this)">
-                <img src="https://static.wikia.nocookie.net/genshin-impact/images/8/87/Paimon_Icon.png" alt="Miscellaneous">
+                <img src="https://static.wikia.nocookie.net/gensin-impact/images/b/bc/Icon_Emoji_Paimon%27s_Paintings_01_Paimon_3.png" alt="Miscellaneous">
                 <span>Miscellaneous</span>
               </button>
             </div>
