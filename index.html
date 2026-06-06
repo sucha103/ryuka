@@ -1180,6 +1180,306 @@
         display: none;
       }
     }
+
+    /* ==========================================================================
+       12. MULTI-GAME AND SUB-CATEGORY STYLING (Redesign Services)
+       ========================================================================== */
+    .services-view-panel {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.35s ease-in-out;
+    }
+
+    .services-view-panel.active {
+      display: block;
+      opacity: 1;
+    }
+
+    /* Game Selection Grid */
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 1.4rem;
+      margin-top: 1.5rem;
+    }
+
+    .game-card {
+      background: rgba(0, 0, 0, 0.02);
+      border: 1px solid rgba(216, 27, 36, 0.12);
+      border-radius: 20px;
+      padding: 1.8rem 1.2rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    body.claurrd-dark .game-card {
+      background: rgba(255, 255, 255, 0.02);
+      border-color: rgba(255, 74, 90, 0.15);
+    }
+
+    .game-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px var(--primary-glow);
+      background: var(--card-bg-light);
+    }
+
+    body.claurrd-dark .game-card:hover {
+      border-color: #ff4a5a;
+      box-shadow: 0 12px 30px rgba(255, 74, 90, 0.2);
+      background: var(--card-bg-dark);
+    }
+
+    .game-card img {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .game-card h4 {
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text-heading-light);
+    }
+
+    body.claurrd-dark .game-card h4 {
+      color: var(--text-heading-dark);
+    }
+
+    .game-status-tag {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 3px 8px;
+      border-radius: 6px;
+      margin-top: 4px;
+    }
+
+    .game-status-tag.active {
+      background: rgba(16, 185, 129, 0.1);
+      color: #10b981;
+    }
+
+    .game-status-tag.coming-soon {
+      background: rgba(0, 0, 0, 0.05);
+      color: var(--text-muted-light);
+    }
+
+    body.claurrd-dark .game-status-tag.coming-soon {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-muted-dark);
+    }
+
+    /* Sub-category Navigation */
+    .category-nav-wrapper {
+      margin-bottom: 2rem;
+      overflow-x: auto;
+      padding-bottom: 5px;
+    }
+
+    .category-nav {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 0.6rem;
+      width: max-content;
+      max-width: 100%;
+    }
+
+    @media (max-width: 800px) {
+      .category-nav {
+        flex-wrap: nowrap;
+      }
+    }
+
+    .category-btn {
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0.55rem 1.1rem;
+      background: rgba(0, 0, 0, 0.03);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 12px;
+      color: var(--text-body-light);
+      font-family: var(--font-heading);
+      font-size: 0.8rem;
+      font-weight: 700;
+      transition: var(--transition);
+    }
+
+    body.claurrd-dark .category-btn {
+      background: rgba(255, 255, 255, 0.03);
+      border-color: rgba(255, 255, 255, 0.06);
+      color: var(--text-body-dark);
+    }
+
+    .category-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: rgba(216, 27, 36, 0.04);
+    }
+
+    body.claurrd-dark .category-btn:hover {
+      border-color: #ff4a5a;
+      color: #ff4a5a;
+      background: rgba(255, 74, 90, 0.06);
+    }
+
+    .category-btn.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 4px 12px var(--primary-glow);
+    }
+
+    body.claurrd-dark .category-btn.active {
+      background: #ff4a5a;
+      border-color: #ff4a5a;
+      box-shadow: 0 4px 12px rgba(255, 74, 90, 0.3);
+    }
+
+    .panel-header-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-heading);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-muted-light);
+      text-decoration: none;
+      padding: 0.4rem 0.8rem;
+      background: rgba(0, 0, 0, 0.03);
+      border-radius: 8px;
+      border: none;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    body.claurrd-dark .panel-header-back {
+      color: var(--text-muted-dark);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .panel-header-back:hover {
+      color: var(--primary);
+      background: rgba(216, 27, 36, 0.06);
+    }
+
+    body.claurrd-dark .panel-header-back:hover {
+      color: #ff4a5a;
+      background: rgba(255, 74, 90, 0.08);
+    }
+
+    .panel-header-back svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      stroke-width: 2.5;
+      fill: none;
+    }
+
+    .exchange-rate-badge {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      border: 1px dashed rgba(255, 208, 0, 0.4);
+      background: rgba(255, 208, 0, 0.03);
+      padding: 4px 10px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* Sub-category Content Sections */
+    .category-section-content {
+      display: none;
+      animation: fadeIn 0.3s ease-in-out forwards;
+    }
+
+    .category-section-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .coming-soon-card {
+      text-align: center;
+      padding: 4.5rem 2rem;
+      border-radius: 24px;
+      border: 2px dashed rgba(0, 0, 0, 0.08);
+      background: rgba(0, 0, 0, 0.01);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    body.claurrd-dark .coming-soon-card {
+      border-color: rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.01);
+    }
+
+    .coming-soon-icon {
+      width: 64px;
+      height: 64px;
+      stroke: var(--primary);
+      opacity: 0.6;
+    }
+
+    body.claurrd-dark .coming-soon-icon {
+      stroke: #ff4a5a;
+    }
+
+    .coming-soon-card h3 {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--text-heading-light);
+    }
+
+    body.claurrd-dark .coming-soon-card h3 {
+      color: var(--text-heading-dark);
+    }
+
+    .coming-soon-card p {
+      font-size: 0.92rem;
+      color: var(--text-muted-light);
+      max-width: 320px;
+      line-height: 1.5;
+    }
+
+    body.claurrd-dark .coming-soon-card p {
+      color: var(--text-muted-dark);
+    }
+
+    /* Double column layout helper for lists */
+    .pricing-grid-cols-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .pricing-grid-cols-2 {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+    }
   </style>
 
 </head>
@@ -1337,98 +1637,1644 @@
       <!-- ==============================================================
            SECTION 2: PRICES PANEL
            ============================================================== -->
+      <!-- ==============================================================
+           SECTION 2: PRICES PANEL
+           ============================================================== -->
       <div id="prices" class="carrd-section">
-        <div class="prices-header">
-          <h2 class="prices-title">Operational Tariffs</h2>
-          <a href="#home" class="back-btn">
-            <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-            <span>Back</span>
-          </a>
-        </div>
-
-        <div class="pricing-tables-wrapper">
-          <!-- Game Crystals Topup Supply -->
-          <div class="table-section">
-            <h3><span></span>Crystal & Saint Quartz Reserves Allocation <img class="inline-sticker" src="https://static.wikia.nocookie.net/houkai-star-rail/images/5/57/Sticker_PPG_11_Himeko_01.png" referrerpolicy="no-referrer" alt="Himeko Star"></h3>
-            <div class="table-container">
-              <table class="table-component">
-                <thead>
-                  <tr>
-                    <th>Quantity (HSR, Genshin, ZZZ, WW, FGO)</th>
-                    <th style="text-align: right;">Tariff Price</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>60 Crystals / 5 SQ</td>
-                    <td class="val-col">45,000đ</td>
-                  </tr>
-                  <tr>
-                    <td>330 Crystals / 18 SQ</td>
-                    <td class="val-col">220,000đ</td>
-                  </tr>
-                  <tr>
-                    <td>1,090 Crystals / 41 SQ</td>
-                    <td class="val-col">650,000đ</td>
-                  </tr>
-                  <tr>
-                    <td>2,240 Crystals / 76 SQ</td>
-                    <td class="val-col">1,480,000đ</td>
-                  </tr>
-                  <tr>
-                    <td>3,880 Crystals / 120 SQ</td>
-                    <td class="val-col">2,270,000đ</td>
-                  </tr>
-                  <tr class="highlighted-row">
-                    <td>8,080 Crystals / 167 SQ <span class="item-desc-badge">Best Value</span></td>
-                    <td class="val-col">4,400,000đ</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+        
+        <!-- Panel 1: Game Selection -->
+        <div id="panel-game-select" class="services-view-panel active">
+          <div class="prices-header">
+            <h2 class="prices-title">Select Theater Operations</h2>
+            <a href="#home" class="back-btn">
+              <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+              <span>Back</span>
+            </a>
           </div>
-
-          <!-- Boosting Services Contracts -->
-          <div class="table-section">
-            <h3><span></span>Tactical Mercenary Contracts <img class="inline-sticker" src="https://static.wikia.nocookie.net/gensin-impact/images/4/48/Icon_Emoji_Paimon%27s_Paintings_07_Klee_3.png" referrerpolicy="no-referrer" alt="Klee Waving"></h3>
-            <div class="table-container">
-              <table class="table-component">
-                <thead>
-                  <tr>
-                    <th>Mission Directive</th>
-                    <th style="text-align: right;">Contract Price</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Archon Quests Campaign (Per Act)</td>
-                    <td class="val-col">50,000đ - 150,000đ</td>
-                  </tr>
-                  <tr>
-                    <td>100% Regional Exploration (Mondstadt, Liyue, v.v.)</td>
-                    <td class="val-col">200,000đ - 350,000đ</td>
-                  </tr>
-                  <tr>
-                    <td>FGO Main Story Clearing (Per Singularity/Lostbelt)</td>
-                    <td class="val-col">80,000đ - 250,000đ</td>
-                  </tr>
-                  <tr>
-                    <td>FGO Event Farming & Daily AP Burn (Weekly)</td>
-                    <td class="val-col">100,000đ - 200,000đ</td>
-                  </tr>
-                </tbody>
-              </table>
+          
+          <p class="profile-bio" style="margin-bottom: 1.5rem;">Select a combat theater or service sector to deploy tactical operations and procure resources.</p>
+          
+          <div class="game-grid">
+            <!-- Genshin Impact -->
+            <div class="game-card" onclick="openGamePanel('genshin')">
+              <img src="https://play-lh.googleusercontent.com/LwMY6l1p8NYifo_lky_JUAD8q0zEoNg7EGteB4ZyiBozT7KOjHVvZjzM6-qAUb1yPSs=s48-rw" referrerpolicy="no-referrer" alt="Genshin Impact">
+              <h4>Genshin Impact</h4>
+              <span class="game-status-tag active">Active</span>
+            </div>
+            <!-- Honkai: Star Rail -->
+            <div class="game-card" onclick="openGamePanel('hsr')">
+              <img src="https://play-lh.googleusercontent.com/YwGBVEWhJ7AE0ygHCcogb1g5bUkBYd03eO5MZGqRAdODFBUwOvy_Fv-zerNOEJ6j4OXxZnKhjrBlXaeLmujZnA=s48-rw" referrerpolicy="no-referrer" alt="Honkai: Star Rail">
+              <h4>Honkai: Star Rail</h4>
+              <span class="game-status-tag coming-soon">Soon</span>
+            </div>
+            <!-- Zenless Zone Zero -->
+            <div class="game-card" onclick="openGamePanel('zzz')">
+              <img src="https://play-lh.googleusercontent.com/jvEKKqz_Kv-XXjrnMgWZ8dbGNIRGns_rdciBpGFk94hsdNoq42_HSu8llcRUrz2Dow=s48-rw" referrerpolicy="no-referrer" alt="Zenless Zone Zero">
+              <h4>Zenless Zone Zero</h4>
+              <span class="game-status-tag coming-soon">Soon</span>
+            </div>
+            <!-- Wuthering Waves -->
+            <div class="game-card" onclick="openGamePanel('wuwa')">
+              <img src="https://play-lh.googleusercontent.com/yRPqiKLJCSt1ao-e8F2It3RZXWInu68Jhm4GWKz7q7xmu4c6UihAGW0FaeNdxVOKR8oO=s48-rw" referrerpolicy="no-referrer" alt="Wuthering Waves">
+              <h4>Wuthering Waves</h4>
+              <span class="game-status-tag coming-soon">Soon</span>
+            </div>
+            <!-- Fate/Grand Order -->
+            <div class="game-card" onclick="openGamePanel('fgo')">
+              <img src="https://play-lh.googleusercontent.com/35wW4EuYqdU1ItNGOcXQc7elbbEIgk1LCE693GOJrIyc2NLC8dGeMs1fchPepzZim_Sif-Q-aFJhyDqr1JEx=s48-rw" referrerpolicy="no-referrer" alt="Fate/Grand Order">
+              <h4>Fate/Grand Order</h4>
+              <span class="game-status-tag coming-soon">Soon</span>
             </div>
           </div>
         </div>
 
-        <!-- Safe provision details -->
-        <div class="pricing-notice">
-          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM12 8v5M12 16h.01"/></svg>
-          <div>
-            All operations executed through fully-secure official avenues. <strong>0% interest installment schedules</strong> are supported upon checkout. Security of accounts is absolutely guaranteed.
+        <!-- Panel 2: Genshin Impact Services -->
+        <div id="panel-genshin" class="services-view-panel">
+          <div class="prices-header" style="margin-bottom: 1.5rem;">
+            <div style="display: flex; flex-direction: column; gap: 4px;">
+              <h2 class="prices-title">Genshin Impact Operations</h2>
+              <div class="exchange-rate-badge">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                <span>Exchange money: 1 USD = 55 ₱</span>
+              </div>
+            </div>
+            <button class="panel-header-back" onclick="backToGameSelect()">
+              <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+              <span>Back</span>
+            </button>
+          </div>
+
+          <!-- Category navigation buttons (7 tabs) -->
+          <div class="category-nav-wrapper">
+            <div class="category-nav">
+              <button class="category-btn active" onclick="switchCategory('char-ascension')">⚔️ Character Ascension</button>
+              <button class="category-btn" onclick="switchCategory('weapon-ascension')">🛡️ Weapon Ascension</button>
+              <button class="category-btn" onclick="switchCategory('talents')">✨ Talent Leveling</button>
+              <button class="category-btn" onclick="switchCategory('exploration')">🗺️ Regional Exploration</button>
+              <button class="category-btn" onclick="switchCategory('quests')">📜 Quest Clears</button>
+              <button class="category-btn" onclick="switchCategory('game-modes')">🏆 Game Modes</button>
+              <button class="category-btn" onclick="switchCategory('misc-materials')">📦 Miscellaneous</button>
+            </div>
+          </div>
+
+          <!-- Category Sections Content -->
+          
+          <!-- Category 1: Character Ascension -->
+          <div id="cat-char-ascension" class="category-section-content active">
+            <div class="table-section">
+              <h3><span></span>Character Ascension Phase Rates</h3>
+              <p class="profile-bio" style="font-size: 0.88rem; margin-bottom: 1rem;">
+                Leveling a single character from level 1/40 to 90. Price <strong>excludes</strong> Mora and Hero's Wits.
+                <span class="item-desc-badge" style="margin-left:0;">10% Discount on full combinations</span>
+              </p>
+              <div class="table-container">
+                <table class="table-component">
+                  <thead>
+                    <tr>
+                      <th>Ascension Directive</th>
+                      <th>Resource Requirement</th>
+                      <th style="text-align: right;">Contract Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Phase 1 (Lv 1/40)</td>
+                      <td>Local Mats x3 | Boss x0 | Common Drops x3 (1★)</td>
+                      <td class="val-col">Free</td>
+                    </tr>
+                    <tr>
+                      <td>Phase 2 (Lv 40/50)</td>
+                      <td>Local Mats x10 | Boss x2 | Common Drops x15 (1★)</td>
+                      <td class="val-col">10 ₱</td>
+                    </tr>
+                    <tr>
+                      <td>Phase 3 (Lv 50/60)</td>
+                      <td>Local Mats x20 | Boss x4 | Common Drops x12 (2★)</td>
+                      <td class="val-col">25 ₱</td>
+                    </tr>
+                    <tr>
+                      <td>Phase 4 (Lv 60/70)</td>
+                      <td>Local Mats x30 | Boss x8 | Common Drops x18 (2★)</td>
+                      <td class="val-col">40 ₱</td>
+                    </tr>
+                    <tr>
+                      <td>Phase 5 (Lv 70/80)</td>
+                      <td>Local Mats x45 | Boss x12 | Common Drops x12 (3★)</td>
+                      <td class="val-col">65 ₱</td>
+                    </tr>
+                    <tr>
+                      <td>Phase 6 (Lv 80/90)</td>
+                      <td>Local Mats x60 | Boss x20 | Common Drops x24 (3★)</td>
+                      <td class="val-col">105 ₱</td>
+                    </tr>
+                    <tr class="highlighted-row">
+                      <td>Full Deployment (Lv 1 → 90 Combo)</td>
+                      <td>All combined phases <span class="item-desc-badge">~10% off</span></td>
+                      <td class="val-col">220 ₱ <span style="text-decoration: line-through; opacity: 0.6; font-size: 0.8rem; font-weight: normal; margin-left: 5px;">245 ₱</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category 2: Weapon Ascension -->
+          <div id="cat-weapon-ascension" class="category-section-content">
+            <div class="table-section">
+              <h3><span></span>Weapon Ascension Phase Rates</h3>
+              <p class="profile-bio" style="font-size: 0.88rem; margin-bottom: 1rem;">
+                Leveling a single weapon from level 1/40 to 90. Price <strong>excludes</strong> Mora and Enhancement Ores.
+                <span class="item-desc-badge" style="margin-left:0;">10% Discount on full combinations</span>
+              </p>
+              <div class="table-container">
+                <table class="table-component">
+                  <thead>
+                    <tr>
+                      <th>Ascension Directive</th>
+                      <th>Resource Requirement</th>
+                      <th style="text-align: right;">Contract Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Phase 1 (Lv 1/40)</td>
+                      <td>Domain Drops x5 (1★) | Elite Drops x5 (1★) | Common Drops x3 (1★)</td>
+                      <td class="val-col">5 ₱</td>
+                    </tr>
+                    <tr>
+                      <td>Phase 2 (Lv 40/50)</td>
+                      <td>Domain Drops x5 (2★) | Elite Drops x18 (1★) | Common Drops x12 (1★)</td>
+                      <td class="val-col">15 ₱</td>
+                    </tr>
+                    <tr>
+                      <td>Phase 3 (Lv 50/60)</td>
+                      <td>Domain Drops x9 (2★) | Elite Drops x9 (2★) | Common Drops x9 (2★)</td>
+                      <td class="val-col">25 ₱</td>
+                    </tr>
+                    <tr>
+                      <td>Phase 4 (Lv 60/70)</td>
+                      <td>Domain Drops x5 (3★) | Elite Drops x18 (2★) | Common Drops x14 (2★)</td>
+                      <td class="val-col">45 ₱</td>
+                    </tr>
+                    <tr>
+                      <td>Phase 5 (Lv 70/80)</td>
+                      <td>Domain Drops x9 (3★) | Elite Drops x14 (3★) | Common Drops x9 (3★)</td>
+                      <td class="val-col">65 ₱</td>
+                    </tr>
+                    <tr>
+                      <td>Phase 6 (Lv 80/90)</td>
+                      <td>Domain Drops x6 (4★) | Elite Drops x27 (3★) | Common Drops x18 (3★)</td>
+                      <td class="val-col">125 ₱</td>
+                    </tr>
+                    <tr class="highlighted-row">
+                      <td>Full Deployment (Lv 1 → 90 Combo)</td>
+                      <td>All combined phases <span class="item-desc-badge">~10% off</span></td>
+                      <td class="val-col">234 ₱ <span style="text-decoration: line-through; opacity: 0.6; font-size: 0.8rem; font-weight: normal; margin-left: 5px;">260 ₱</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category 3: Talents -->
+          <div id="cat-talents" class="category-section-content">
+            <div class="table-section">
+              <h3><span></span>Talent Upgrade Tariffs</h3>
+              <p class="profile-bio" style="font-size: 0.88rem; margin-bottom: 1rem;">
+                Upgrade cost based on **1 single talent skill** (Normal Attack, Elemental Skill, or Elemental Burst).
+              </p>
+              <div class="table-container">
+                <table class="table-component">
+                  <thead>
+                    <tr>
+                      <th>Talent Grade Shift</th>
+                      <th>Resource Requirement</th>
+                      <th style="text-align: right;">Contract Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Lv 1 → 2</td>
+                      <td>Domain Drops x3 (1★) | Common Drops x6 (1★)</td>
+                      <td class="val-col">Free</td>
+                    </tr>
+                    <tr>
+                      <td>Lv 2 → 3</td>
+                      <td>Domain Drops x2 (2★) | Common Drops x3 (2★)</td>
+                      <td class="val-col">5 ₱</td>
+                    </tr>
+                    <tr>
+                      <td>Lv 3 → 4</td>
+                      <td>Domain Drops x4 (2★) | Common Drops x4 (2★)</td>
+                      <td class="val-col">10 ₱</td>
+                    </tr>
+                    <tr>
+                      <td>Lv 4 → 5</td>
+                      <td>Domain Drops x6 (2★) | Common Drops x6 (2★)</td>
+                      <td class="val-col">15 ₱</td>
+                    </tr>
+                    <tr>
+                      <td>Lv 5 → 6</td>
+                      <td>Domain Drops x9 (2★) | Common Drops x9 (2★)</td>
+                      <td class="val-col">20 ₱</td>
+                    </tr>
+                    <tr>
+                      <td>Lv 6 → 7</td>
+                      <td>Domain Drops x4 (3★) | Common Drops x4 (3★) | Weekly Boss Drops x1</td>
+                      <td class="val-col">25 ₱</td>
+                    </tr>
+                    <tr>
+                      <td>Lv 7 → 8</td>
+                      <td>Domain Drops x6 (3★) | Common Drops x6 (3★) | Weekly Boss Drops x1</td>
+                      <td class="val-col">40 ₱</td>
+                    </tr>
+                    <tr>
+                      <td>Lv 8 → 9</td>
+                      <td>Domain Drops x12 (3★) | Common Drops x9 (3★) | Weekly Boss Drops x2</td>
+                      <td class="val-col">75 ₱</td>
+                    </tr>
+                    <tr>
+                      <td>Lv 9 → 10 (Crown)</td>
+                      <td>Domain Drops x16 (3★) | Common Drops x12 (3★) | Weekly Boss Drops x2</td>
+                      <td class="val-col">100 ₱</td>
+                    </tr>
+                    <tr class="highlighted-row">
+                      <td>Total Combo (Lv 1 → 10 Crowned)</td>
+                      <td>All levels combined for one skill</td>
+                      <td class="val-col">290 ₱</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category 4: Exploration -->
+          <div id="cat-exploration" class="category-section-content">
+            <div class="table-section">
+              <h3><span></span>Regional Exploration Rates</h3>
+              <p class="profile-bio" style="font-size: 0.88rem; margin-bottom: 1rem;">
+                Based on current exploration percentage progress. Format: <strong>(Base rate if starting under 40% progress - Per % rate if starting between 41-80% progress - Flat rate if starting above 81% progress)</strong>.
+              </p>
+              
+              <!-- Sub-tabs for regions -->
+              <div class="category-nav-wrapper" style="margin-bottom: 1.2rem; border-bottom: 1px solid rgba(0, 0, 0, 0.05); padding-bottom: 3px;">
+                <div class="category-nav" style="gap: 0.4rem; padding-bottom: 3px;">
+                  <button class="category-btn active exploration-sub-btn" onclick="switchExplorationSub('exp-mondstadt', this)">Mondstadt</button>
+                  <button class="category-btn exploration-sub-btn" onclick="switchExplorationSub('exp-liyue', this)">Liyue</button>
+                  <button class="category-btn exploration-sub-btn" onclick="switchExplorationSub('exp-inazuma', this)">Inazuma</button>
+                  <button class="category-btn exploration-sub-btn" onclick="switchExplorationSub('exp-sumeru', this)">Sumeru</button>
+                  <button class="category-btn exploration-sub-btn" onclick="switchExplorationSub('exp-fontaine', this)">Fontaine</button>
+                  <button class="category-btn exploration-sub-btn" onclick="switchExplorationSub('exp-natlan', this)">Natlan</button>
+                  <button class="category-btn exploration-sub-btn" onclick="switchExplorationSub('exp-nrodkai', this)">Nrodkai</button>
+                  <button class="category-btn exploration-sub-btn" onclick="switchExplorationSub('exp-lunavi', this)">Mondstadt (LUNA VI)</button>
+                </div>
+              </div>
+
+              <!-- Mondstadt -->
+              <div id="exp-mondstadt" class="exploration-sub-panel">
+                <div class="table-container">
+                  <table class="table-component">
+                    <thead>
+                      <tr>
+                        <th>Regional Sector</th>
+                        <th>Start &lt; 40%</th>
+                        <th>Start 41-80%</th>
+                        <th style="text-align: right;">Start &gt; 81%</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Brightcrown Mountain</td>
+                        <td>155 ₱</td>
+                        <td>2 ₱ / %</td>
+                        <td class="val-col">40 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Galesong Hill</td>
+                        <td>95 ₱</td>
+                        <td>1.5 ₱ / %</td>
+                        <td class="val-col">25 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Starfell Valley</td>
+                        <td>215 ₱</td>
+                        <td>2.5 ₱ / %</td>
+                        <td class="val-col">50 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Windwail Highlands</td>
+                        <td>130 ₱</td>
+                        <td>1.5 ₱ / %</td>
+                        <td class="val-col">30 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Dragonspine</td>
+                        <td>360 ₱</td>
+                        <td>4 ₱ / %</td>
+                        <td class="val-col">90 ₱</td>
+                      </tr>
+                      <tr class="highlighted-row">
+                        <td>Mondstadt Combo (All areas 100%)</td>
+                        <td colspan="2">Full Region Package</td>
+                        <td class="val-col">930 ₱</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Liyue -->
+              <div id="exp-liyue" class="exploration-sub-panel" style="display: none;">
+                <div class="table-container">
+                  <table class="table-component">
+                    <thead>
+                      <tr>
+                        <th>Regional Sector</th>
+                        <th>Start &lt; 40%</th>
+                        <th>Start 41-80%</th>
+                        <th style="text-align: right;">Start &gt; 81%</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Lisha</td>
+                        <td>125 ₱</td>
+                        <td>1.5 ₱ / %</td>
+                        <td class="val-col">30 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Sea of Clouds</td>
+                        <td>190 ₱</td>
+                        <td>2.5 ₱ / %</td>
+                        <td class="val-col">45 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Qiongji Estuary</td>
+                        <td>205 ₱</td>
+                        <td>2.5 ₱ / %</td>
+                        <td class="val-col">50 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Bishui Plains</td>
+                        <td>230 ₱</td>
+                        <td>2.5 ₱ / %</td>
+                        <td class="val-col">55 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Minlin</td>
+                        <td>290 ₱</td>
+                        <td>3 ₱ / %</td>
+                        <td class="val-col">70 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Chasm Surface</td>
+                        <td>205 ₱</td>
+                        <td>2.5 ₱ / %</td>
+                        <td class="val-col">50 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Chasm Underground</td>
+                        <td>305 ₱</td>
+                        <td>3.5 ₱ / %</td>
+                        <td class="val-col">75 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Upper Valley</td>
+                        <td>230 ₱</td>
+                        <td>2.5 ₱ / %</td>
+                        <td class="val-col">55 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Southern Mountains</td>
+                        <td>240 ₱</td>
+                        <td>2.5 ₱ / %</td>
+                        <td class="val-col">60 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Mt. Laixin</td>
+                        <td>70 ₱</td>
+                        <td>1 ₱ / %</td>
+                        <td class="val-col">15 ₱</td>
+                      </tr>
+                      <tr class="highlighted-row">
+                        <td>Liyue Combo (All areas 100%)</td>
+                        <td colspan="2">Full Region Package</td>
+                        <td class="val-col">2070 ₱</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Inazuma -->
+              <div id="exp-inazuma" class="exploration-sub-panel" style="display: none;">
+                <div class="table-container">
+                  <table class="table-component">
+                    <thead>
+                      <tr>
+                        <th>Regional Sector</th>
+                        <th>Start &lt; 40%</th>
+                        <th>Start 41-80%</th>
+                        <th style="text-align: right;">Start &gt; 81%</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Narukami</td>
+                        <td>230 ₱</td>
+                        <td>3 ₱ / %</td>
+                        <td class="val-col">55 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Kannazuka</td>
+                        <td>185 ₱</td>
+                        <td>2.5 ₱ / %</td>
+                        <td class="val-col">45 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Yashiori</td>
+                        <td>155 ₱</td>
+                        <td>2 ₱ / %</td>
+                        <td class="val-col">40 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Seirai</td>
+                        <td>180 ₱</td>
+                        <td>2.5 ₱ / %</td>
+                        <td class="val-col">45 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Watatsumi</td>
+                        <td>175 ₱</td>
+                        <td>2.5 ₱ / %</td>
+                        <td class="val-col">45 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Tsurumi</td>
+                        <td>255 ₱</td>
+                        <td>3 ₱ / %</td>
+                        <td class="val-col">65 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Enkanomiya</td>
+                        <td>465 ₱</td>
+                        <td>5 ₱ / %</td>
+                        <td class="val-col">115 ₱</td>
+                      </tr>
+                      <tr class="highlighted-row">
+                        <td>Inazuma Combo (All areas 100%)</td>
+                        <td colspan="2">Full Region Package</td>
+                        <td class="val-col">1630 ₱</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Sumeru -->
+              <div id="exp-sumeru" class="exploration-sub-panel" style="display: none;">
+                <div class="table-container">
+                  <table class="table-component">
+                    <thead>
+                      <tr>
+                        <th>Regional Sector</th>
+                        <th>Start &lt; 40%</th>
+                        <th>Start 41-80%</th>
+                        <th style="text-align: right;">Start &gt; 81%</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Lost Nursery</td>
+                        <td>35 ₱</td>
+                        <td>/</td>
+                        <td class="val-col">/</td>
+                      </tr>
+                      <tr>
+                        <td>Vanarana</td>
+                        <td>80 ₱</td>
+                        <td>1 ₱ / %</td>
+                        <td class="val-col">20 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Lokapala Jungle</td>
+                        <td>160 ₱</td>
+                        <td>2 ₱ / %</td>
+                        <td class="val-col">40 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Ashavan Realm</td>
+                        <td>315 ₱</td>
+                        <td>3.5 ₱ / %</td>
+                        <td class="val-col">75 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Avidya Forest</td>
+                        <td>175 ₱</td>
+                        <td>2 ₱ / %</td>
+                        <td class="val-col">40 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Ardravi Valley</td>
+                        <td>190 ₱</td>
+                        <td>2 ₱ / %</td>
+                        <td class="val-col">45 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Hypostyle Desert</td>
+                        <td>260 ₱</td>
+                        <td>3 ₱ / %</td>
+                        <td class="val-col">65 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Land of Lower Setekh</td>
+                        <td>190 ₱</td>
+                        <td>2.5 ₱ / %</td>
+                        <td class="val-col">45 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Hadramaveth</td>
+                        <td>510 ₱</td>
+                        <td>5.5 ₱ / %</td>
+                        <td class="val-col">125 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Realm of Farakhkert</td>
+                        <td>205 ₱</td>
+                        <td>2.5 ₱ / %</td>
+                        <td class="val-col">50 ₱</td>
+                      </tr>
+                      <tr class="highlighted-row">
+                        <td>Sumeru Combo (All areas 100%)</td>
+                        <td colspan="2">Full Region Package</td>
+                        <td class="val-col">2560 ₱</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Fontaine -->
+              <div id="exp-fontaine" class="exploration-sub-panel" style="display: none;">
+                <div class="table-container">
+                  <table class="table-component">
+                    <thead>
+                      <tr>
+                        <th>Regional Sector</th>
+                        <th>Start &lt; 40%</th>
+                        <th>Start 41-80%</th>
+                        <th style="text-align: right;">Start &gt; 81%</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Belleau Region</td>
+                        <td>125 ₱</td>
+                        <td>1.5 ₱ / %</td>
+                        <td class="val-col">30 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Nostoi Region</td>
+                        <td>90 ₱</td>
+                        <td>1 ₱ / %</td>
+                        <td class="val-col">25 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Beryl Region</td>
+                        <td>195 ₱</td>
+                        <td>2 ₱ / %</td>
+                        <td class="val-col">45 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Court of Fontaine</td>
+                        <td>280 ₱</td>
+                        <td>3 ₱ / %</td>
+                        <td class="val-col">70 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Liffey Region</td>
+                        <td>180 ₱</td>
+                        <td>2 ₱ / %</td>
+                        <td class="val-col">45 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>R.I.K.E.E Region</td>
+                        <td>240 ₱</td>
+                        <td>2.5 ₱ / %</td>
+                        <td class="val-col">60 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Morte Region</td>
+                        <td>200 ₱</td>
+                        <td>2.5 ₱ / %</td>
+                        <td class="val-col">50 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Erinnyes Forest</td>
+                        <td>190 ₱</td>
+                        <td>2 ₱ / %</td>
+                        <td class="val-col">45 ₱</td>
+                      </tr>
+                      <tr class="highlighted-row">
+                        <td>Fontaine Combo (All areas 100%)</td>
+                        <td colspan="2">Full Region Package</td>
+                        <td class="val-col">1785 ₱</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Natlan -->
+              <div id="exp-natlan" class="exploration-sub-panel" style="display: none;">
+                <div class="table-container">
+                  <table class="table-component">
+                    <thead>
+                      <tr>
+                        <th>Regional Sector</th>
+                        <th>Start &lt; 40%</th>
+                        <th>Start 41-80%</th>
+                        <th style="text-align: right;">Start &gt; 81%</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Coatepec Mountain</td>
+                        <td>240 ₱</td>
+                        <td>2.5 ₱ / %</td>
+                        <td class="val-col">60 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Basin of Unnumbered Flames</td>
+                        <td>170 ₱</td>
+                        <td>2 ₱ / %</td>
+                        <td class="val-col">40 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Tequemecan Valley</td>
+                        <td>230 ₱</td>
+                        <td>2.5 ₱ / %</td>
+                        <td class="val-col">55 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Toyac Springs</td>
+                        <td>175 ₱</td>
+                        <td>2 ₱ / %</td>
+                        <td class="val-col">45 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Quahuacan Cliff</td>
+                        <td>130 ₱</td>
+                        <td>1.5 ₱ / %</td>
+                        <td class="val-col">30 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Tezcatepetonco Range</td>
+                        <td>155 ₱</td>
+                        <td>2 ₱ / %</td>
+                        <td class="val-col">40 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Ochkanatlan</td>
+                        <td>285 ₱</td>
+                        <td>3 ₱ / %</td>
+                        <td class="val-col">70 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Atocpan</td>
+                        <td>255 ₱</td>
+                        <td>3 ₱ / %</td>
+                        <td class="val-col">65 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Ancient Sacred Mountain</td>
+                        <td>290 ₱</td>
+                        <td>3 ₱ / %</td>
+                        <td class="val-col">70 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Easybreeze Holiday Resort</td>
+                        <td>360 ₱</td>
+                        <td>4 ₱ / %</td>
+                        <td class="val-col">90 ₱</td>
+                      </tr>
+                      <tr class="highlighted-row">
+                        <td>Natlan Combo (All areas 100%)</td>
+                        <td colspan="2">Full Region Package</td>
+                        <td class="val-col">2265 ₱</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Nrodkai -->
+              <div id="exp-nrodkai" class="exploration-sub-panel" style="display: none;">
+                <div class="table-container">
+                  <table class="table-component">
+                    <thead>
+                      <tr>
+                        <th>Regional Sector</th>
+                        <th>Start &lt; 40%</th>
+                        <th>Start 41-80%</th>
+                        <th style="text-align: right;">Start &gt; 81%</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Hiisi Island</td>
+                        <td>205 ₱</td>
+                        <td>2.5 ₱ / %</td>
+                        <td class="val-col">50 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Paha Isle</td>
+                        <td>230 ₱</td>
+                        <td>2.5 ₱ / %</td>
+                        <td class="val-col">55 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Lempo Isle</td>
+                        <td>355 ₱</td>
+                        <td>4 ₱ / %</td>
+                        <td class="val-col">90 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Voidsea Outlook</td>
+                        <td>230 ₱</td>
+                        <td>2.5 ₱ / %</td>
+                        <td class="val-col">55 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Wavechaser Plain</td>
+                        <td>245 ₱</td>
+                        <td>2.5 ₱ / %</td>
+                        <td class="val-col">60 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Ashveil Peak</td>
+                        <td>200 ₱</td>
+                        <td>2.5 ₱ / %</td>
+                        <td class="val-col">50 ₱</td>
+                      </tr>
+                      <tr class="highlighted-row">
+                        <td>Nrodkai Combo (All areas 100%)</td>
+                        <td colspan="2">Full Region Package</td>
+                        <td class="val-col">1465 ₱</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Luna VI -->
+              <div id="exp-lunavi" class="exploration-sub-panel" style="display: none;">
+                <div class="table-container">
+                  <table class="table-component">
+                    <thead>
+                      <tr>
+                        <th>Regional Sector</th>
+                        <th>Start &lt; 40%</th>
+                        <th>Start 41-80%</th>
+                        <th style="text-align: right;">Start &gt; 81%</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Windrest Peak</td>
+                        <td>160 ₱</td>
+                        <td>2 ₱ / %</td>
+                        <td class="val-col">40 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Temple of Space</td>
+                        <td>420 ₱</td>
+                        <td>5 ₱ / %</td>
+                        <td class="val-col">100 ₱</td>
+                      </tr>
+                      <tr class="highlighted-row">
+                        <td>Monstadt (LUNA VI) Combo (All 100%)</td>
+                        <td colspan="2">Full Region Package</td>
+                        <td class="val-col">1030 ₱</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Category 5: Quests -->
+          <div id="cat-quests" class="category-section-content">
+            <div class="table-section">
+              <h3><span></span>World & Special Quest Campaigns</h3>
+              <p class="profile-bio" style="font-size: 0.88rem; margin-bottom: 1rem;">
+                Official clearing services for major world quest lines, hangouts, character story quests, and minor missions.
+              </p>
+
+              <!-- Sub-tabs for Quests -->
+              <div class="category-nav-wrapper" style="margin-bottom: 1.2rem; border-bottom: 1px solid rgba(0, 0, 0, 0.05); padding-bottom: 3px;">
+                <div class="category-nav" style="gap: 0.4rem; padding-bottom: 3px;">
+                  <button class="category-btn active quests-sub-btn" onclick="switchQuestsSub('q-mondstadt-sumeru', this)">Mondstadt - Sumeru</button>
+                  <button class="category-btn quests-sub-btn" onclick="switchQuestsSub('q-fontaine-nrodkai', this)">Fontaine - Nrodkai</button>
+                  <button class="category-btn quests-sub-btn" onclick="switchQuestsSub('q-special', this)">Story / Hangouts / Minors</button>
+                </div>
+              </div>
+
+              <!-- Mondstadt - Sumeru -->
+              <div id="q-mondstadt-sumeru" class="quests-sub-panel">
+                <div class="table-container">
+                  <table class="table-component">
+                    <thead>
+                      <tr>
+                        <th>Quest Directive Name</th>
+                        <th style="text-align: right;">Contract Price</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Mondstadt -->
+                      <tr class="highlighted-row">
+                        <td colspan="2">Mondstadt World Quests</td>
+                      </tr>
+                      <tr>
+                        <td>Break the Sword Cemetery Seal</td>
+                        <td class="val-col">35 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Time and Wind</td>
+                        <td class="val-col">35 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>In The Mountains</td>
+                        <td class="val-col">67 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>A Land Entombed</td>
+                        <td class="val-col">28 ₱</td>
+                      </tr>
+                      <!-- Liyue -->
+                      <tr class="highlighted-row">
+                        <td colspan="2">Liyue World Quests</td>
+                      </tr>
+                      <tr>
+                        <td>The Chi of Yore</td>
+                        <td class="val-col">56 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Chasm Delvers</td>
+                        <td class="val-col">206 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Chenyu's Blessing of Sunken Jade</td>
+                        <td class="val-col">205 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>The Cloud Padded Path to the Chiwang Repose</td>
+                        <td class="val-col">25 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>A Wangshan Walk to Remember</td>
+                        <td class="val-col">60 ₱</td>
+                      </tr>
+                      <!-- Inazuma -->
+                      <tr class="highlighted-row">
+                        <td colspan="2">Inazuma World Quests</td>
+                      </tr>
+                      <tr>
+                        <td>Sacred Sakura Cleansing Ritual</td>
+                        <td class="val-col">115 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Tatara Tales (Full 7 Days)</td>
+                        <td class="val-col">80 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Orobashi's Legacy (5 Parts)</td>
+                        <td class="val-col">155 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Seirai Stormchasers (4 Parts)</td>
+                        <td class="val-col">115 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Through the Mists (4 Days)</td>
+                        <td class="val-col">185 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>The Moon-Bathe-Deep</td>
+                        <td class="val-col">155 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>The Still Water's Flow</td>
+                        <td class="val-col">45 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Sakura Arborism</td>
+                        <td class="val-col">55 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>From Dusk to Dawn in Byakuyakoku</td>
+                        <td class="val-col">205 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Erebos' Secret</td>
+                        <td class="val-col">77 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Collection of Dragons and Snakes</td>
+                        <td class="val-col">56 ₱</td>
+                      </tr>
+                      <!-- Sumeru -->
+                      <tr class="highlighted-row">
+                        <td colspan="2">Sumeru World Quests</td>
+                      </tr>
+                      <tr>
+                        <td>Aranyaka Quest Line (Full completion, all subquests)</td>
+                        <td class="val-col">700 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Aranyaka + Aranyaka Book completion combo</td>
+                        <td class="val-col">600 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Legends of the Stone Lock</td>
+                        <td class="val-col">65 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Static Views (Parts I & II)</td>
+                        <td class="val-col">50 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Golden Slumber</td>
+                        <td class="val-col">200 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Old Notes and New Friends</td>
+                        <td class="val-col">250 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Dual Evidence (ONNF Part 2)</td>
+                        <td class="val-col">150 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Afratu's Dilemma</td>
+                        <td class="val-col">50 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>The Dirge of Bilqis</td>
+                        <td class="val-col">250 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>"The Falcon" Series</td>
+                        <td class="val-col">100 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Apocalypse Lost</td>
+                        <td class="val-col">50 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Khvarena of Good and Evil</td>
+                        <td class="val-col">290 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Pale Fire</td>
+                        <td class="val-col">50 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Lightcall Resonance</td>
+                        <td class="val-col">30 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Monumental Study</td>
+                        <td class="val-col">40 ₱</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Fontaine - Nrodkai -->
+              <div id="q-fontaine-nrodkai" class="quests-sub-panel" style="display: none;">
+                <div class="table-container">
+                  <table class="table-component">
+                    <thead>
+                      <tr>
+                        <th>Quest Directive Name</th>
+                        <th style="text-align: right;">Contract Price</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Fontaine -->
+                      <tr class="highlighted-row">
+                        <td colspan="2">Fontaine World Quests</td>
+                      </tr>
+                      <tr>
+                        <td>Ancient Colors</td>
+                        <td class="val-col">120 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Ann of the Narzissenkreuz</td>
+                        <td class="val-col">150 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Aqueous Tidemarks</td>
+                        <td class="val-col">50 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Book of Esoteric Revelations</td>
+                        <td class="val-col">40 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Unfinished Comedy</td>
+                        <td class="val-col">200 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Road to the Singularity</td>
+                        <td class="val-col">50 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Fontaine Research Institute Chronicles</td>
+                        <td class="val-col">150 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>In the Search of Lost Time (4 Parts)</td>
+                        <td class="val-col">80 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Treacherous Light of the Depths</td>
+                        <td class="val-col">80 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>In The Wake of Narcissus</td>
+                        <td class="val-col">250 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>The Wild Fairy of Erinnyes</td>
+                        <td class="val-col">120 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Questioning Melusine and Answering Machine</td>
+                        <td class="val-col">255 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Canticles of Harmony (4 Acts)</td>
+                        <td class="val-col">200 ₱</td>
+                      </tr>
+                      <!-- Natlan -->
+                      <tr class="highlighted-row">
+                        <td colspan="2">Natlan World Quests</td>
+                      </tr>
+                      <tr>
+                        <td>Tales of Dreams Plucked From Fire</td>
+                        <td class="val-col">50 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Shadows of the Mountains</td>
+                        <td class="val-col">125 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Between Pledge and Forgettance</td>
+                        <td class="val-col">80 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>To the Night, What is the Night's</td>
+                        <td class="val-col">50 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Ripe for Trouble</td>
+                        <td class="val-col">50 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Lost Traveler in the Ashen Realm</td>
+                        <td class="val-col">260 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>The Mystery of Tecoloapan Beach</td>
+                        <td class="val-col">70 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Open your Heart to Me</td>
+                        <td class="val-col">60 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Quest Chain: Path to the Flaming Peaks / Chronicler of the Crumbling City / A Finale Emberforged</td>
+                        <td class="val-col">255 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>The Way Into the Mountain</td>
+                        <td class="val-col">70 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>The World is Your Canvas (Full Part)</td>
+                        <td class="val-col">160 ₱</td>
+                      </tr>
+                      <!-- Nrodkai -->
+                      <tr class="highlighted-row">
+                        <td colspan="2">Nrodkai World Quests</td>
+                      </tr>
+                      <tr>
+                        <td>Polkka Beneath the Moon's Oracle</td>
+                        <td class="val-col">200 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Colors of Emptiness</td>
+                        <td class="val-col">50 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>East of the Moon, West of the Sun</td>
+                        <td class="val-col">200 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Nightingale's Song</td>
+                        <td class="val-col">255 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Return to Sender</td>
+                        <td class="val-col">80 ₱</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Special / Minor Quests -->
+              <div id="q-special" class="quests-sub-panel" style="display: none;">
+                <div class="table-container">
+                  <table class="table-component">
+                    <thead>
+                      <tr>
+                        <th>Quest Type & Description</th>
+                        <th style="text-align: right;">Contract Price</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Meeting Point -->
+                      <tr class="highlighted-row">
+                        <td colspan="2">Meeting Point Quests</td>
+                      </tr>
+                      <tr>
+                        <td>Standard Meeting Point (Per quest, 6 total)</td>
+                        <td class="val-col">20 ₱ / each</td>
+                      </tr>
+                      <!-- Story Quests -->
+                      <tr class="highlighted-row">
+                        <td colspan="2">Character Story Quests</td>
+                      </tr>
+                      <tr>
+                        <td>Story Quest ACT I</td>
+                        <td class="val-col">55 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Story Quest ACT II</td>
+                        <td class="val-col">65 ₱</td>
+                      </tr>
+                      <!-- Hangout Events -->
+                      <tr class="highlighted-row">
+                        <td colspan="2">Hangout Events</td>
+                      </tr>
+                      <tr>
+                        <td>FULL Hangout Campaign (5 Endings)</td>
+                        <td class="val-col">60 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>FULL Hangout Campaign (6 Endings)</td>
+                        <td class="val-col">60 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Single Custom Ending (Per Ending)</td>
+                        <td class="val-col">15 ₱</td>
+                      </tr>
+                      <!-- Tribe Quests -->
+                      <tr class="highlighted-row">
+                        <td colspan="2">Natlan Tribe Quests</td>
+                      </tr>
+                      <tr>
+                        <td>Tribe Quest ACT I</td>
+                        <td class="val-col">25 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Tribe Quest ACT II</td>
+                        <td class="val-col">25 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Tribe Quest ACT III</td>
+                        <td class="val-col">50 ₱</td>
+                      </tr>
+                      <tr class="highlighted-row">
+                        <td>FULL Tribe Quests Combo (3 Acts)</td>
+                        <td class="val-col">90 ₱</td>
+                      </tr>
+                      <!-- Minor Quests -->
+                      <tr class="highlighted-row">
+                        <td colspan="2">Minor/Side Quests (By duration)</td>
+                      </tr>
+                      <tr>
+                        <td>Quest duration under 10 minutes</td>
+                        <td class="val-col">15 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Quest duration between 11 - 20 minutes</td>
+                        <td class="val-col">30 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Quest duration between 21 - 30 minutes</td>
+                        <td class="val-col">50 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Quest duration between 31 - 50 minutes</td>
+                        <td class="val-col">70 ₱</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Category 6: Game Modes -->
+          <div id="cat-game-modes" class="category-section-content">
+            <div class="table-section" style="margin-bottom: 2rem;">
+              <h3><span></span>Spiral Abyss Campaign</h3>
+              <div class="table-container">
+                <table class="table-component">
+                  <thead>
+                    <tr>
+                      <th>Abyss Operations Directive</th>
+                      <th style="text-align: right;">Contract Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Full Spiral Abyss Cycle Clearance</td>
+                      <td class="val-col">250 ₱</td>
+                    </tr>
+                    <tr>
+                      <td>Floor 1 - 8 (Per Floor)</td>
+                      <td class="val-col">20 ₱ / Floor</td>
+                    </tr>
+                    <tr>
+                      <td>Floor 9 - 10 (Per Floor)</td>
+                      <td class="val-col">50 ₱ / Floor</td>
+                    </tr>
+                    <tr>
+                      <td>Floor 11</td>
+                      <td class="val-col">70 ₱</td>
+                    </tr>
+                    <tr>
+                      <td>Floor 12</td>
+                      <td class="val-col">90 ₱</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="table-section" style="margin-bottom: 2rem;">
+              <h3><span></span>Imaginarium Theater</h3>
+              <div class="table-container">
+                <table class="table-component">
+                  <thead>
+                    <tr>
+                      <th>Theater Act Range</th>
+                      <th style="text-align: right;">Contract Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Full Theater Cycle Clearance</td>
+                      <td class="val-col">300 ₱</td>
+                    </tr>
+                    <tr>
+                      <td>Act 1 - 6 (Per Act)</td>
+                      <td class="val-col">25 ₱ / ACT</td>
+                    </tr>
+                    <tr>
+                      <td>Act 7 - 8 (Per Act)</td>
+                      <td class="val-col">35 ₱ / ACT</td>
+                    </tr>
+                    <tr>
+                      <td>Act 9 - 10 (Per Act)</td>
+                      <td class="val-col">40 ₱ / ACT</td>
+                    </tr>
+                    <tr>
+                      <td>Arcana Mode (Per Act)</td>
+                      <td class="val-col">40 ₱ / ACT</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="pricing-grid-cols-2">
+              <div class="table-section">
+                <h3><span></span>Genius Invokation TCG</h3>
+                <div class="table-container">
+                  <table class="table-component">
+                    <thead>
+                      <tr>
+                        <th>TCG Directive</th>
+                        <th style="text-align: right;">Price</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>TCG Ascension Quest</td>
+                        <td class="val-col">(+) 25 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Character Invitation Match</td>
+                        <td class="val-col">10 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Weekly Guest Challenges</td>
+                        <td class="val-col">20 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>TCG Leveling (Lv 1 - 5)</td>
+                        <td class="val-col">(+) 20 ₱ / level</td>
+                      </tr>
+                      <tr>
+                        <td>TCG Leveling (Lv 6 - 10)</td>
+                        <td class="val-col">(+) 60 ₱ / level</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="table-section">
+                <h3><span></span>Serenitea Teapot Designs</h3>
+                <div class="table-container">
+                  <table class="table-component">
+                    <thead>
+                      <tr>
+                        <th>Teapot Directive</th>
+                        <th style="text-align: right;">Price</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Whole Teapot Realm Setup</td>
+                        <td class="val-col">750 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Per design area construction</td>
+                        <td class="val-col">(+) 150 ₱</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category 7: Miscellaneous -->
+          <div id="cat-misc-materials" class="category-section-content">
+            
+            <div class="table-section" style="margin-bottom: 2rem;">
+              <h3><span></span>Adventure Rank (AR) Boosting</h3>
+              <div class="table-container">
+                <table class="table-component">
+                  <thead>
+                    <tr>
+                      <th>Adventure Rank Range</th>
+                      <th>World Level</th>
+                      <th style="text-align: right;">Price per Level</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Level 01 - 25</td>
+                      <td>WL 01</td>
+                      <td class="val-col">20 ₱ / Level</td>
+                    </tr>
+                    <tr>
+                      <td>Level 25 - 30</td>
+                      <td>WL 02</td>
+                      <td class="val-col">30 ₱ / Level</td>
+                    </tr>
+                    <tr>
+                      <td>Level 30 - 35</td>
+                      <td>WL 03</td>
+                      <td class="val-col">50 ₱ / Level</td>
+                    </tr>
+                    <tr>
+                      <td>Level 35 - 40</td>
+                      <td>WL 04</td>
+                      <td class="val-col">80 ₱ / Level</td>
+                    </tr>
+                    <tr>
+                      <td>Level 40 - 45</td>
+                      <td>WL 05</td>
+                      <td class="val-col">100 ₱ / Level</td>
+                    </tr>
+                    <tr>
+                      <td>Level 45 - 50</td>
+                      <td>WL 06</td>
+                      <td class="val-col">120 ₱ / Level</td>
+                    </tr>
+                    <tr>
+                      <td>Level 50 - 55</td>
+                      <td>WL 07</td>
+                      <td class="val-col">150 ₱ / Level</td>
+                    </tr>
+                    <tr class="highlighted-row">
+                      <td>Level 55+</td>
+                      <td colspan="2">Custom Account Maintenance Services instead.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="pricing-grid-cols-2" style="margin-bottom: 2rem;">
+              <div class="table-section">
+                <h3><span></span>Material Farm Supply</h3>
+                <div class="table-container">
+                  <table class="table-component">
+                    <thead>
+                      <tr>
+                        <th>Material Type</th>
+                        <th style="text-align: right;">Farming Tariff</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Local Specialities / Ore</td>
+                        <td class="val-col">3 pc / 1 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Enemy Drops (Tier 1)</td>
+                        <td class="val-col">3 pc / 1 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Enemy Drops (Tier 2)</td>
+                        <td class="val-col">1 pc / 1 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Enemy Drops (Tier 3)</td>
+                        <td class="val-col">1 pc / 3 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Fishing Collectibles</td>
+                        <td class="val-col">2 pc / 1 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Crystal Cores</td>
+                        <td class="val-col">3 pc / 1 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Wood (All types)</td>
+                        <td class="val-col">5 pc / 1 ₱</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="table-section">
+                <h3><span></span>Offering & Exploration Trees</h3>
+                <div class="table-container">
+                  <table class="table-component">
+                    <thead>
+                      <tr>
+                        <th>Offering System</th>
+                        <th>Level Range</th>
+                        <th style="text-align: right;">Price per Level</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Sakura Tree (Inazuma)</td>
+                        <td>Lv 1 - 35<br>Lv 36 - 50</td>
+                        <td class="val-col">25 ₱ / level<br>30 ₱ / level</td>
+                      </tr>
+                      <tr>
+                        <td>Tree of Dreams (Sumeru)</td>
+                        <td>Lv 1 - 30<br>Lv 31 - 50</td>
+                        <td class="val-col">35 ₱ / level<br>40 ₱ / level</td>
+                      </tr>
+                      <tr>
+                        <td>Fountain of Lucine (Fontaine)</td>
+                        <td>Lv 1 - 30<br>Lv 31 - 50</td>
+                        <td class="val-col">35 ₱ / level<br>40 ₱ / level</td>
+                      </tr>
+                      <tr>
+                        <td>Tablet of Tona (Natlan)</td>
+                        <td>Lv 1 - 30<br>Lv 31 - 50</td>
+                        <td class="val-col">35 ₱ / level<br>40 ₱ / level</td>
+                      </tr>
+                      <tr class="highlighted-row">
+                        <td>Sigil Collecting</td>
+                        <td>Anemo / Geo</td>
+                        <td class="val-col">2 ₱ / Sigil</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="pricing-grid-cols-2">
+              <div class="table-section">
+                <h3><span></span>Special Fishing Weapon Services</h3>
+                <div class="table-container">
+                  <table class="table-component">
+                    <thead>
+                      <tr>
+                        <th>Weapon Order Specification</th>
+                        <th style="text-align: right;">Contract Price</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Full R5 Fished Weapon (The Catch, Pipe, etc.)</td>
+                        <td class="val-col">180 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>R1 Fished Weapon only</td>
+                        <td class="val-col">80 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Refinement Material (Per Refinement rank)</td>
+                        <td class="val-col">25 ₱</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="table-section">
+                <h3><span></span>Primogems & Events Procurement</h3>
+                <div class="table-container">
+                  <table class="table-component">
+                    <thead>
+                      <tr>
+                        <th>Directive</th>
+                        <th style="text-align: right;">Tariff Price</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Primogem Hunt (1 Wish / 160 Primos)</td>
+                        <td class="val-col">30 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Primogem Hunt (10 Wishes / 1600 Primos)</td>
+                        <td class="val-col">300 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Minor/Web Events Completion</td>
+                        <td class="val-col">80 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Major Version Event (No exploration)</td>
+                        <td class="val-col">200 ₱</td>
+                      </tr>
+                      <tr>
+                        <td>Exploration Event (Includes event maps)</td>
+                        <td class="val-col">≥ 550 ₱</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Safe provision details -->
+          <div class="pricing-notice" style="margin-top: 2.5rem;">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM12 8v5M12 16h.01"/></svg>
+            <div>
+              All operations executed through fully-secure official avenues. <strong>0% interest installment schedules</strong> are supported upon checkout. Security of accounts is absolutely guaranteed.
+            </div>
           </div>
         </div>
+
+        <!-- Panel 3: HSR / ZZZ / WuWa / FGO (Placeholder Coming Soon) -->
+        <div id="panel-coming-soon" class="services-view-panel">
+          <div class="prices-header" style="margin-bottom: 2rem;">
+            <h2 class="prices-title" id="coming-soon-title">Operational Sectors</h2>
+            <button class="panel-header-back" onclick="backToGameSelect()">
+              <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+              <span>Back</span>
+            </button>
+          </div>
+          
+          <div class="coming-soon-card">
+            <svg class="coming-soon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
+            </svg>
+            <h3>Tactical Sector Pending</h3>
+            <p>Our operations specialists are currently mapping resource extraction routes and establishing pricing directories for this sector. Operations will commence shortly.</p>
+          </div>
+        </div>
+
       </div>
 
       <!-- Carrd Credits footer -->
@@ -1463,7 +3309,7 @@
       }, 500);
     });
 
-    // 2. Hash Routing Handler
+    // 2. Hash Routing Handler & Multi-Game Panel Controls
     function handleRouting() {
       var hash = window.location.hash || '#home';
       var homeSection = document.getElementById('home');
@@ -1472,6 +3318,7 @@
       if (hash === '#prices') {
         homeSection.classList.remove('active');
         pricesSection.classList.add('active');
+        backToGameSelect(); // Reset to game selection when prices loads
       } else {
         pricesSection.classList.remove('active');
         homeSection.classList.add('active');
@@ -1480,6 +3327,131 @@
 
     window.addEventListener('hashchange', handleRouting);
     window.addEventListener('load', handleRouting);
+
+    // Switch between Game Selection and specific Game Panel
+    function openGamePanel(gameId) {
+      // Hide all panels
+      var panels = document.querySelectorAll('.services-view-panel');
+      panels.forEach(function(panel) {
+        panel.classList.remove('active');
+        panel.style.display = 'none';
+      });
+
+      if (gameId === 'genshin') {
+        var genshinPanel = document.getElementById('panel-genshin');
+        genshinPanel.style.display = 'block';
+        setTimeout(function() {
+          genshinPanel.classList.add('active');
+        }, 10);
+        // Default to character-ascension when opening Genshin
+        switchCategory('char-ascension');
+      } else {
+        var comingSoonPanel = document.getElementById('panel-coming-soon');
+        var comingSoonTitle = document.getElementById('coming-soon-title');
+        
+        var gameNames = {
+          'hsr': 'Honkai: Star Rail Operations',
+          'zzz': 'Zenless Zone Zero Operations',
+          'wuwa': 'Wuthering Waves Operations',
+          'fgo': 'Fate/Grand Order Operations'
+        };
+        
+        comingSoonTitle.textContent = gameNames[gameId] || 'Operational Sector';
+        comingSoonPanel.style.display = 'block';
+        setTimeout(function() {
+          comingSoonPanel.classList.add('active');
+        }, 10);
+      }
+    }
+
+    function backToGameSelect() {
+      var panels = document.querySelectorAll('.services-view-panel');
+      panels.forEach(function(panel) {
+        panel.classList.remove('active');
+        panel.style.display = 'none';
+      });
+
+      var selectPanel = document.getElementById('panel-game-select');
+      selectPanel.style.display = 'block';
+      setTimeout(function() {
+        selectPanel.classList.add('active');
+      }, 10);
+    }
+
+    // Switch between the 7 categories under Genshin Impact
+    function switchCategory(categoryId) {
+      // Update navigation buttons
+      var navButtons = document.querySelectorAll('#panel-genshin .category-btn');
+      navButtons.forEach(function(btn) {
+        btn.classList.remove('active');
+      });
+
+      // Find the clicked button and make it active
+      var targetBtn = Array.from(navButtons).find(function(btn) {
+        return btn.getAttribute('onclick').includes(categoryId);
+      });
+      if (targetBtn) {
+        targetBtn.classList.add('active');
+      }
+
+      // Hide all category sections
+      var sections = document.querySelectorAll('.category-section-content');
+      sections.forEach(function(sec) {
+        sec.classList.remove('active');
+      });
+
+      // Show the selected section
+      var activeSection = document.getElementById('cat-' + categoryId);
+      if (activeSection) {
+        activeSection.classList.add('active');
+      }
+    }
+
+    // Exploration sub-tab switcher
+    function switchExplorationSub(subId, btn) {
+      // Deactivate other buttons in the same container
+      var container = btn.parentNode;
+      var buttons = container.querySelectorAll('.exploration-sub-btn');
+      buttons.forEach(function(b) {
+        b.classList.remove('active');
+      });
+      btn.classList.add('active');
+
+      // Hide other panels
+      var panels = document.querySelectorAll('.exploration-sub-panel');
+      panels.forEach(function(p) {
+        p.style.display = 'none';
+      });
+
+      // Show targeted panel
+      var activePanel = document.getElementById(subId);
+      if (activePanel) {
+        activePanel.style.display = 'block';
+      }
+    }
+
+    // Quests sub-tab switcher
+    function switchQuestsSub(subId, btn) {
+      // Deactivate other buttons
+      var container = btn.parentNode;
+      var buttons = container.querySelectorAll('.quests-sub-btn');
+      buttons.forEach(function(b) {
+        b.classList.remove('active');
+      });
+      btn.classList.add('active');
+
+      // Hide other panels
+      var panels = document.querySelectorAll('.quests-sub-panel');
+      panels.forEach(function(p) {
+        p.style.display = 'none';
+      });
+
+      // Show targeted panel
+      var activePanel = document.getElementById(subId);
+      if (activePanel) {
+        activePanel.style.display = 'block';
+      }
+    }
 
     // 3. spotlight mouse follower border glow (awesome-design-md feature)
     var card = document.querySelector('.card');
