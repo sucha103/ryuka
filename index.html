@@ -184,6 +184,10 @@
       -webkit-backdrop-filter: blur(20px);
     }
 
+    .card.wide-layout {
+      max-width: 68rem;
+    }
+
     body.claurrd-dark .card {
       background: var(--card-bg-dark);
       border: var(--card-border-dark);
@@ -3368,6 +3372,11 @@
         homeSection.classList.remove('active');
         pricesSection.classList.add('active');
         
+        var card = document.querySelector('.card');
+        if (card) {
+          card.classList.add('wide-layout');
+        }
+        
         // Show correct sub-panel based on hash suffix
         if (hash === '#prices') {
           renderSubPanel('select');
@@ -3378,6 +3387,11 @@
       } else {
         pricesSection.classList.remove('active');
         homeSection.classList.add('active');
+        
+        var card = document.querySelector('.card');
+        if (card) {
+          card.classList.remove('wide-layout');
+        }
       }
     }
 
