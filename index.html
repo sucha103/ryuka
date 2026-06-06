@@ -3375,6 +3375,11 @@
         var card = document.querySelector('.card');
         if (card) {
           card.classList.add('wide-layout');
+          if (window.innerWidth > 768) {
+            card.style.maxWidth = '68rem';
+          } else {
+            card.style.maxWidth = '100%';
+          }
         }
         
         // Show correct sub-panel based on hash suffix
@@ -3391,12 +3396,15 @@
         var card = document.querySelector('.card');
         if (card) {
           card.classList.remove('wide-layout');
+          card.style.maxWidth = '';
         }
       }
     }
 
     window.addEventListener('hashchange', handleRouting);
-    window.addEventListener('load', handleRouting);
+    document.addEventListener('DOMContentLoaded', handleRouting);
+    // Execute immediately to process initial hash fast
+    handleRouting();
 
     // Render correct services panel based on current state
     function renderSubPanel(panelId) {
