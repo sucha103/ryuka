@@ -966,6 +966,12 @@
       }
     }
 
+    @media (max-width: 768px) {
+      .sticker-topleft {
+        display: none;
+      }
+    }
+
     @media (max-width: 650px) {
       .card {
         padding: 2.2rem;
@@ -986,6 +992,52 @@
       .table-component th, .table-component td {
         padding: 0.75rem 0.6rem;
         font-size: 0.85rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      #wrapper {
+        padding: 1rem 0.5rem;
+      }
+      .card {
+        padding: 1.5rem 1rem;
+        border-radius: 24px;
+      }
+      .carrd-section {
+        width: 100%;
+      }
+      .table-component th, .table-component td {
+        padding: 0.55rem 0.35rem;
+        font-size: 0.76rem;
+      }
+      .exchange-rate-badge {
+        font-size: 0.72rem;
+        padding: 3px 8px;
+      }
+      .prices-title {
+        font-size: 1.25rem;
+      }
+      .prices-header {
+        margin-bottom: 1.2rem !important;
+        gap: 10px;
+      }
+      .panel-header-back span {
+        display: none;
+      }
+      .panel-header-back {
+        padding: 0.5rem;
+        width: 32px;
+        height: 32px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+      }
+      .genshin-sidebar {
+        width: calc(100% + 2rem) !important;
+        margin: 0 -1rem 0.2rem -1rem !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
       }
     }
 
@@ -1330,17 +1382,28 @@
         gap: 1.5rem;
       }
       .genshin-sidebar {
-        flex: 1;
-        width: 100%;
+        display: flex;
         flex-direction: row;
-        flex-wrap: wrap;
+        overflow-x: auto;
+        white-space: nowrap;
         gap: 0.5rem;
         background: none;
         border: none;
-        padding: 0;
+        padding: 0.2rem 0.2rem 0.6rem 0.2rem;
         border-radius: 0;
+        width: calc(100% + 4.4rem);
+        margin: 0 -2.2rem 0.2rem -2.2rem;
+        padding-left: 2.2rem;
+        padding-right: 2.2rem;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE and Edge */
+        -webkit-overflow-scrolling: touch;
+      }
+      .genshin-sidebar::-webkit-scrollbar {
+        display: none;
       }
       .genshin-sidebar .category-btn {
+        flex: 0 0 auto;
         width: auto;
       }
     }
