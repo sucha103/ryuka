@@ -1280,16 +1280,65 @@
       color: var(--text-muted-dark);
     }
 
-    /* Sub-category Navigation */
-    .category-nav-wrapper {
-      margin-bottom: 2rem;
+    /* Sub-category Navigation & RPG-style Two-Column Sidebar Layout */
+    .genshin-menu-layout {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+      margin-top: 1.5rem;
+      text-align: left;
     }
 
-    .category-nav {
+    .genshin-sidebar {
+      flex: 0 0 240px;
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
       gap: 0.6rem;
+      background: rgba(0, 0, 0, 0.02);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      padding: 1rem;
+      border-radius: 16px;
+    }
+
+    body.claurrd-dark .genshin-sidebar {
+      background: rgba(255, 255, 255, 0.02);
+      border-color: rgba(255, 255, 255, 0.06);
+    }
+
+    .genshin-content-area {
+      flex: 1;
+      min-width: 0; /* Prevents flexbox overflow */
+    }
+
+    /* Vertical Category Button Overrides */
+    .genshin-sidebar .category-btn {
       width: 100%;
+      text-align: left;
+      justify-content: flex-start;
+      padding: 0.75rem 1.1rem;
+      border-radius: 12px;
+      font-size: 0.82rem;
+    }
+
+    @media (max-width: 768px) {
+      .genshin-menu-layout {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      .genshin-sidebar {
+        flex: 1;
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        background: none;
+        border: none;
+        padding: 0;
+        border-radius: 0;
+      }
+      .genshin-sidebar .category-btn {
+        width: auto;
+      }
     }
 
     .category-btn {
@@ -1337,6 +1386,13 @@
       background: #ff4a5a;
       border-color: #ff4a5a;
       box-shadow: 0 4px 12px rgba(255, 74, 90, 0.3);
+    }
+
+    .category-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      width: 100%;
     }
 
     .panel-header-back {
@@ -1395,10 +1451,12 @@
 
     /* Sub-category Content Sections */
     .category-section-content {
-      display: block;
-      margin-bottom: 4rem;
-      scroll-margin-top: 30px;
+      display: none;
       animation: fadeIn 0.3s ease-in-out forwards;
+    }
+
+    .category-section-content.active {
+      display: block;
     }
 
     @keyframes fadeIn {
@@ -1693,23 +1751,24 @@
             </button>
           </div>
 
-          <!-- Category navigation buttons (7 tabs) -->
-          <div class="category-nav-wrapper">
-            <div class="category-nav">
-              <button class="category-btn active" onclick="scrollToCategory('cat-char-ascension', this)">⚔️ Character Ascension</button>
-              <button class="category-btn" onclick="scrollToCategory('cat-weapon-ascension', this)">🛡️ Weapon Ascension</button>
-              <button class="category-btn" onclick="scrollToCategory('cat-talents', this)">✨ Talent Leveling</button>
-              <button class="category-btn" onclick="scrollToCategory('cat-exploration', this)">🗺️ Regional Exploration</button>
-              <button class="category-btn" onclick="scrollToCategory('cat-quests', this)">📜 Quest Clears</button>
-              <button class="category-btn" onclick="scrollToCategory('cat-game-modes', this)">🏆 Game Modes</button>
-              <button class="category-btn" onclick="scrollToCategory('cat-misc-materials', this)">📦 Miscellaneous</button>
+          <!-- RPG-style Two-Column Sidebar Layout -->
+          <div class="genshin-menu-layout">
+            <!-- Left Sidebar for Category buttons -->
+            <div class="genshin-sidebar">
+              <button class="category-btn active" onclick="switchCategory('cat-char-ascension', this)">⚔️ Character Ascension</button>
+              <button class="category-btn" onclick="switchCategory('cat-weapon-ascension', this)">🛡️ Weapon Ascension</button>
+              <button class="category-btn" onclick="switchCategory('cat-talents', this)">✨ Talent Leveling</button>
+              <button class="category-btn" onclick="switchCategory('cat-exploration', this)">🗺️ Regional Exploration</button>
+              <button class="category-btn" onclick="switchCategory('cat-quests', this)">📜 Quest Clears</button>
+              <button class="category-btn" onclick="switchCategory('cat-game-modes', this)">🏆 Game Modes</button>
+              <button class="category-btn" onclick="switchCategory('cat-misc-materials', this)">📦 Miscellaneous</button>
             </div>
-          </div>
 
-          <!-- Category Sections Content -->
-          
-          <!-- Category 1: Character Ascension -->
-          <div id="cat-char-ascension" class="category-section-content">
+            <!-- Right Content Area for active content tab -->
+            <div class="genshin-content-area">
+              
+              <!-- Category 1: Character Ascension -->
+              <div id="cat-char-ascension" class="category-section-content active">
             <div class="table-section">
               <h3><span></span>Character Ascension Phase Rates</h3>
               <p class="profile-bio" style="font-size: 0.88rem; margin-bottom: 1rem;">
@@ -3233,8 +3292,8 @@
                 </div>
               </div>
             </div>
-
-          </div>
+            </div> <!-- End of .genshin-content-area -->
+          </div> <!-- End of .genshin-menu-layout -->
 
           <!-- Safe provision details -->
           <div class="pricing-notice" style="margin-top: 2.5rem;">
@@ -3341,6 +3400,16 @@
         if (navButtons.length > 0) {
           navButtons[0].classList.add('active');
         }
+
+        // Reset content sections to show only the first section (Character Ascension)
+        var sections = document.querySelectorAll('.category-section-content');
+        sections.forEach(function(s) {
+          s.classList.remove('active');
+        });
+        var firstSection = document.getElementById('cat-char-ascension');
+        if (firstSection) {
+          firstSection.classList.add('active');
+        }
       } else {
         var comingSoonPanel = document.getElementById('panel-coming-soon');
         var comingSoonTitle = document.getElementById('coming-soon-title');
@@ -3374,21 +3443,30 @@
       }, 10);
     }
 
-    // Scroll to specific category under Genshin Impact
-    function scrollToCategory(sectionId, btn) {
-      var section = document.getElementById(sectionId);
-      if (section) {
-        // Update navigation buttons active class
-        var navButtons = document.querySelectorAll('#panel-genshin .category-btn');
-        navButtons.forEach(function(b) {
+    // Switch specific category under Genshin Impact tab layout
+    function switchCategory(sectionId, btn) {
+      // Update sidebar buttons active class
+      var sidebar = document.querySelector('.genshin-sidebar');
+      if (sidebar) {
+        var buttons = sidebar.querySelectorAll('.category-btn');
+        buttons.forEach(function(b) {
           b.classList.remove('active');
         });
-        if (btn) {
-          btn.classList.add('active');
-        }
-        
-        // Smooth scroll to the section
-        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      if (btn) {
+        btn.classList.add('active');
+      }
+
+      // Hide all category content sections
+      var sections = document.querySelectorAll('.category-section-content');
+      sections.forEach(function(s) {
+        s.classList.remove('active');
+      });
+
+      // Show targeted category content
+      var targetSection = document.getElementById(sectionId);
+      if (targetSection) {
+        targetSection.classList.add('active');
       }
     }
 
