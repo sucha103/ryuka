@@ -1392,6 +1392,31 @@
       box-shadow: 0 4px 12px rgba(255, 74, 90, 0.3);
     }
 
+    /* Genshin Sidebar Category Icons */
+    .category-btn img {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid rgba(216, 27, 36, 0.2);
+      flex-shrink: 0;
+      background: rgba(255, 255, 255, 0.15);
+      transition: var(--transition);
+    }
+
+    body.claurrd-dark .category-btn img {
+      border-color: rgba(255, 74, 90, 0.3);
+    }
+
+    .category-btn.active img {
+      border-color: rgba(255, 255, 255, 0.7);
+      transform: scale(1.15);
+    }
+
+    .category-btn:hover img {
+      transform: scale(1.15);
+    }
+
     .category-nav {
       display: flex;
       flex-wrap: wrap;
@@ -1759,13 +1784,34 @@
           <div class="genshin-menu-layout">
             <!-- Left Sidebar for Category buttons -->
             <div class="genshin-sidebar">
-              <button class="category-btn active" onclick="switchCategory('cat-char-ascension', this)">⚔️ Character Ascension</button>
-              <button class="category-btn" onclick="switchCategory('cat-weapon-ascension', this)">🛡️ Weapon Ascension</button>
-              <button class="category-btn" onclick="switchCategory('cat-talents', this)">✨ Talent Leveling</button>
-              <button class="category-btn" onclick="switchCategory('cat-exploration', this)">🗺️ Regional Exploration</button>
-              <button class="category-btn" onclick="switchCategory('cat-quests', this)">📜 Quest Clears</button>
-              <button class="category-btn" onclick="switchCategory('cat-game-modes', this)">🏆 Game Modes</button>
-              <button class="category-btn" onclick="switchCategory('cat-misc-materials', this)">📦 Miscellaneous</button>
+              <button class="category-btn active" onclick="switchCategory('cat-char-ascension', this)">
+                <img src="https://upload-os-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_Bennett.png" alt="Character Ascension">
+                <span>Character Ascension</span>
+              </button>
+              <button class="category-btn" onclick="switchCategory('cat-weapon-ascension', this)">
+                <img src="https://upload-os-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_Zhongli.png" alt="Weapon Ascension">
+                <span>Weapon Ascension</span>
+              </button>
+              <button class="category-btn" onclick="switchCategory('cat-talents', this)">
+                <img src="https://upload-os-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_Lisa.png" alt="Talent Leveling">
+                <span>Talent Leveling</span>
+              </button>
+              <button class="category-btn" onclick="switchCategory('cat-exploration', this)">
+                <img src="https://upload-os-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_Klee.png" alt="Regional Exploration">
+                <span>Regional Exploration</span>
+              </button>
+              <button class="category-btn" onclick="switchCategory('cat-quests', this)">
+                <img src="https://upload-os-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_PlayerGirl.png" alt="Quest Clears">
+                <span>Quest Clears</span>
+              </button>
+              <button class="category-btn" onclick="switchCategory('cat-game-modes', this)">
+                <img src="https://upload-os-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_Cyno.png" alt="Game Modes">
+                <span>Game Modes</span>
+              </button>
+              <button class="category-btn" onclick="switchCategory('cat-misc-materials', this)">
+                <img src="https://static.wikia.nocookie.net/genshin-impact/images/8/87/Paimon_Icon.png" alt="Miscellaneous">
+                <span>Miscellaneous</span>
+              </button>
             </div>
 
             <!-- Right Content Area for active content tab -->
