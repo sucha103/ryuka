@@ -1283,22 +1283,13 @@
     /* Sub-category Navigation */
     .category-nav-wrapper {
       margin-bottom: 2rem;
-      overflow-x: auto;
-      padding-bottom: 5px;
     }
 
     .category-nav {
       display: flex;
-      flex-wrap: nowrap;
+      flex-wrap: wrap;
       gap: 0.6rem;
-      width: max-content;
-      max-width: 100%;
-    }
-
-    @media (max-width: 800px) {
-      .category-nav {
-        flex-wrap: nowrap;
-      }
+      width: 100%;
     }
 
     .category-btn {
@@ -1404,12 +1395,10 @@
 
     /* Sub-category Content Sections */
     .category-section-content {
-      display: none;
-      animation: fadeIn 0.3s ease-in-out forwards;
-    }
-
-    .category-section-content.active {
       display: block;
+      margin-bottom: 4rem;
+      scroll-margin-top: 30px;
+      animation: fadeIn 0.3s ease-in-out forwards;
     }
 
     @keyframes fadeIn {
@@ -1707,20 +1696,20 @@
           <!-- Category navigation buttons (7 tabs) -->
           <div class="category-nav-wrapper">
             <div class="category-nav">
-              <button class="category-btn active" onclick="switchCategory('char-ascension')">⚔️ Character Ascension</button>
-              <button class="category-btn" onclick="switchCategory('weapon-ascension')">🛡️ Weapon Ascension</button>
-              <button class="category-btn" onclick="switchCategory('talents')">✨ Talent Leveling</button>
-              <button class="category-btn" onclick="switchCategory('exploration')">🗺️ Regional Exploration</button>
-              <button class="category-btn" onclick="switchCategory('quests')">📜 Quest Clears</button>
-              <button class="category-btn" onclick="switchCategory('game-modes')">🏆 Game Modes</button>
-              <button class="category-btn" onclick="switchCategory('misc-materials')">📦 Miscellaneous</button>
+              <button class="category-btn active" onclick="scrollToCategory('cat-char-ascension', this)">⚔️ Character Ascension</button>
+              <button class="category-btn" onclick="scrollToCategory('cat-weapon-ascension', this)">🛡️ Weapon Ascension</button>
+              <button class="category-btn" onclick="scrollToCategory('cat-talents', this)">✨ Talent Leveling</button>
+              <button class="category-btn" onclick="scrollToCategory('cat-exploration', this)">🗺️ Regional Exploration</button>
+              <button class="category-btn" onclick="scrollToCategory('cat-quests', this)">📜 Quest Clears</button>
+              <button class="category-btn" onclick="scrollToCategory('cat-game-modes', this)">🏆 Game Modes</button>
+              <button class="category-btn" onclick="scrollToCategory('cat-misc-materials', this)">📦 Miscellaneous</button>
             </div>
           </div>
 
           <!-- Category Sections Content -->
           
           <!-- Category 1: Character Ascension -->
-          <div id="cat-char-ascension" class="category-section-content active">
+          <div id="cat-char-ascension" class="category-section-content">
             <div class="table-section">
               <h3><span></span>Character Ascension Phase Rates</h3>
               <p class="profile-bio" style="font-size: 0.88rem; margin-bottom: 1rem;">
@@ -3343,8 +3332,15 @@
         setTimeout(function() {
           genshinPanel.classList.add('active');
         }, 10);
-        // Default to character-ascension when opening Genshin
-        switchCategory('char-ascension');
+        
+        // Reset category highlights to first button
+        var navButtons = document.querySelectorAll('#panel-genshin .category-btn');
+        navButtons.forEach(function(btn) {
+          btn.classList.remove('active');
+        });
+        if (navButtons.length > 0) {
+          navButtons[0].classList.add('active');
+        }
       } else {
         var comingSoonPanel = document.getElementById('panel-coming-soon');
         var comingSoonTitle = document.getElementById('coming-soon-title');
@@ -3378,32 +3374,21 @@
       }, 10);
     }
 
-    // Switch between the 7 categories under Genshin Impact
-    function switchCategory(categoryId) {
-      // Update navigation buttons
-      var navButtons = document.querySelectorAll('#panel-genshin .category-btn');
-      navButtons.forEach(function(btn) {
-        btn.classList.remove('active');
-      });
-
-      // Find the clicked button and make it active
-      var targetBtn = Array.from(navButtons).find(function(btn) {
-        return btn.getAttribute('onclick').includes(categoryId);
-      });
-      if (targetBtn) {
-        targetBtn.classList.add('active');
-      }
-
-      // Hide all category sections
-      var sections = document.querySelectorAll('.category-section-content');
-      sections.forEach(function(sec) {
-        sec.classList.remove('active');
-      });
-
-      // Show the selected section
-      var activeSection = document.getElementById('cat-' + categoryId);
-      if (activeSection) {
-        activeSection.classList.add('active');
+    // Scroll to specific category under Genshin Impact
+    function scrollToCategory(sectionId, btn) {
+      var section = document.getElementById(sectionId);
+      if (section) {
+        // Update navigation buttons active class
+        var navButtons = document.querySelectorAll('#panel-genshin .category-btn');
+        navButtons.forEach(function(b) {
+          b.classList.remove('active');
+        });
+        if (btn) {
+          btn.classList.add('active');
+        }
+        
+        // Smooth scroll to the section
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }
 
