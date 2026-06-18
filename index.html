@@ -1420,18 +1420,29 @@
         gap: 0.5rem;
         background: none;
         border: none;
-        padding: 0.2rem 0.2rem 0.6rem 0.2rem;
+        padding: 0.2rem 0.2rem 0.8rem 0.2rem;
         border-radius: 0;
         width: calc(100% + 4.4rem);
         margin: 0 -2.2rem 0.2rem -2.2rem;
         padding-left: 2.2rem;
         padding-right: 2.2rem;
-        scrollbar-width: none; /* Firefox */
-        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: thin; /* Firefox */
+        scrollbar-color: rgba(192, 12, 26, 0.2) transparent;
         -webkit-overflow-scrolling: touch;
       }
       .genshin-sidebar::-webkit-scrollbar, .fgo-sidebar::-webkit-scrollbar {
-        display: none;
+        height: 5px;
+        display: block;
+      }
+      .genshin-sidebar::-webkit-scrollbar-track, .fgo-sidebar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .genshin-sidebar::-webkit-scrollbar-thumb, .fgo-sidebar::-webkit-scrollbar-thumb {
+        background: rgba(192, 12, 26, 0.25);
+        border-radius: 4px;
+      }
+      .genshin-sidebar::-webkit-scrollbar-thumb:hover, .fgo-sidebar::-webkit-scrollbar-thumb:hover {
+        background: rgba(192, 12, 26, 0.5);
       }
       .genshin-sidebar .category-btn, .fgo-sidebar .category-btn {
         flex: 0 0 auto;
