@@ -1656,6 +1656,196 @@
         gap: 1.5rem;
       }
     }
+
+    /* Discord Custom Popup Modal */
+    .discord-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 99990;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .discord-modal-backdrop.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .discord-modal-content {
+      background: var(--card-bg-light);
+      border: var(--card-border-light);
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.25),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      border-radius: 24px;
+      width: 90%;
+      max-width: 400px;
+      padding: 2.2rem;
+      text-align: center;
+      position: relative;
+      transform: scale(0.9) translateY(10px);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    body.claurrd-dark .discord-modal-content {
+      background: var(--card-bg-dark);
+      border: var(--card-border-dark);
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .discord-modal-backdrop.open .discord-modal-content {
+      transform: scale(1) translateY(0);
+    }
+
+    .discord-modal-close-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(0, 0, 0, 0.03);
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-muted-light);
+      transition: var(--transition);
+    }
+
+    body.claurrd-dark .discord-modal-close-btn {
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-muted-dark);
+    }
+
+    .discord-modal-close-btn:hover {
+      background: rgba(216, 27, 36, 0.08);
+      color: var(--primary);
+    }
+
+    body.claurrd-dark .discord-modal-close-btn:hover {
+      background: rgba(255, 74, 90, 0.08);
+      color: #ff4a5a;
+    }
+
+    .discord-modal-close-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.5;
+    }
+
+    .discord-modal-icon {
+      width: 64px;
+      height: 64px;
+      background: rgba(88, 101, 242, 0.1);
+      color: #5865F2;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.2rem;
+    }
+
+    .discord-modal-icon svg {
+      width: 32px;
+      height: 32px;
+      fill: currentColor;
+    }
+
+    .discord-modal-title {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: var(--text-heading-light);
+      margin-bottom: 0.5rem;
+    }
+
+    body.claurrd-dark .discord-modal-title {
+      color: var(--text-heading-dark);
+    }
+
+    .discord-modal-text {
+      font-size: 0.9rem;
+      color: var(--text-muted-light);
+      margin-bottom: 1.5rem;
+      line-height: 1.4;
+    }
+
+    body.claurrd-dark .discord-modal-text {
+      color: var(--text-muted-dark);
+    }
+
+    .discord-username-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(0, 0, 0, 0.02);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      padding: 0.8rem 1rem;
+      border-radius: 12px;
+      margin-bottom: 0.5rem;
+    }
+
+    body.claurrd-dark .discord-username-container {
+      background: rgba(255, 255, 255, 0.02);
+      border-color: rgba(255, 255, 255, 0.06);
+    }
+
+    .discord-username-text {
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-heading-light);
+    }
+
+    body.claurrd-dark .discord-username-text {
+      color: var(--text-heading-dark);
+    }
+
+    .discord-copy-btn {
+      background: var(--primary);
+      border: none;
+      color: #ffffff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-family: var(--font-heading);
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 10px var(--primary-glow);
+    }
+
+    .discord-copy-btn:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    .discord-copy-btn.copied {
+      background: #10b981;
+      box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);
+    }
+
+    .discord-copy-btn svg {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.5;
+    }
   </style>
 
 </head>
@@ -1814,6 +2004,13 @@
             <a href="https://www.instagram.com/teto.s.bakery" target="_blank" rel="noopener noreferrer" class="social-link" title="Instagram Bakery Profile">
               <svg viewBox="0 0 24 24">
                 <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051C.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="social-link discord-trigger" title="Discord Account: teto.s.bakery" onclick="event.preventDefault(); openDiscordPopup();">
+              <svg viewBox="0 0 24 24">
+                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.094 13.094 0 0 1-1.873-.894.077.077 0 0 1-.008-.128c.126-.093.252-.19.372-.287a.075.075 0 0 1 .077-.011c3.92 1.793 8.18 1.793 12.061 0a.073.073 0 0 1 .078.009c.12.099.246.195.373.289a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.156 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.156 2.418z"/>
               </svg>
             </a>
           </li>
@@ -4241,6 +4438,32 @@
     </div>
   </div>
 
+  <!-- Discord Username Popup Modal -->
+  <div class="discord-modal-backdrop" id="discord-popup-modal" onclick="closeDiscordPopupOnBackdrop(event)">
+    <div class="discord-modal-content">
+      <button class="discord-modal-close-btn" onclick="closeDiscordPopup()" aria-label="Close modal">
+        <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      
+      <div class="discord-modal-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.094 13.094 0 0 1-1.873-.894.077.077 0 0 1-.008-.128c.126-.093.252-.19.372-.287a.075.075 0 0 1 .077-.011c3.92 1.793 8.18 1.793 12.061 0a.073.073 0 0 1 .078.009c.12.099.246.195.373.289a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.156 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.156 2.418z"/>
+        </svg>
+      </div>
+      
+      <h3 class="discord-modal-title">Discord Username</h3>
+      <p class="discord-modal-text">Add me on Discord to discuss boosting or custom operations directly!</p>
+      
+      <div class="discord-username-container">
+        <span class="discord-username-text" id="discord-username">teto.s.bakery</span>
+        <button class="discord-copy-btn" id="discord-copy-button" onclick="copyDiscordUsername()">
+          <svg viewBox="0 0 24 24" id="copy-btn-icon"><path d="M8 4v12a2 2 0 002 2h8a2 2 0 002-2V7.242a2 2 0 00-.602-1.43L16.89 3.302A2 2 0 0015.46 2H10a2 2 0 00-2 2z"/><path d="M16 18v2a2 2 0 01-2 2H6a2 2 0 01-2-2V9a2 2 0 012-2h2"/></svg>
+          <span id="copy-btn-text">Copy</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Floating Mascot Sticker (Mayano Top Gun) -->
   <div class="sticker-mascot" id="global-mascot" title="Click to cycle avatar mood!">
     <img src="https://i.giphy.com/nIcTVaqw1Xi3bApI6H.gif" alt="Mayano Top Gun Sticker" id="mascot-img">
@@ -4727,6 +4950,68 @@
         }, 2500);
       });
     })();
+
+    // Discord Popup Modal Controls
+    function openDiscordPopup() {
+      var modal = document.getElementById('discord-popup-modal');
+      if (modal) {
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    // Direct binding for escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeDiscordPopup();
+      }
+    });
+
+    function closeDiscordPopup() {
+      var modal = document.getElementById('discord-popup-modal');
+      if (modal) {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+      setTimeout(resetCopyButton, 300);
+    }
+
+    function closeDiscordPopupOnBackdrop(e) {
+      if (e.target === document.getElementById('discord-popup-modal')) {
+        closeDiscordPopup();
+      }
+    }
+
+    function copyDiscordUsername() {
+      var username = document.getElementById('discord-username').textContent;
+      navigator.clipboard.writeText(username).then(function() {
+        var copyBtn = document.getElementById('discord-copy-button');
+        var btnText = document.getElementById('copy-btn-text');
+        var btnIcon = document.getElementById('copy-btn-icon');
+        
+        if (copyBtn && btnText && btnIcon) {
+          copyBtn.classList.add('copied');
+          btnText.textContent = 'Copied!';
+          btnIcon.innerHTML = '<path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" fill="none" />'; // Checkmark icon
+          
+          setTimeout(closeDiscordPopup, 1200);
+        }
+      }).catch(function(err) {
+        console.error('Could not copy text: ', err);
+      });
+    }
+
+    function resetCopyButton() {
+      var copyBtn = document.getElementById('discord-copy-button');
+      var btnText = document.getElementById('copy-btn-text');
+      var btnIcon = document.getElementById('copy-btn-icon');
+      
+      if (copyBtn && btnText && btnIcon) {
+        copyBtn.classList.remove('copied');
+        btnText.textContent = 'Copy';
+        btnIcon.innerHTML = '<path d="M8 4v12a2 2 0 002 2h8a2 2 0 002-2V7.242a2 2 0 00-.602-1.43L16.89 3.302A2 2 0 0015.46 2H10a2 2 0 00-2 2z"/><path d="M16 18v2a2 2 0 01-2 2H6a2 2 0 01-2-2V9a2 2 0 012-2h2"/>';
+      }
+    }
   </script>
 </body>
 </html>
